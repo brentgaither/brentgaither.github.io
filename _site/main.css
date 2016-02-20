@@ -59,7 +59,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .site-nav { float: right; line-height: 56px; }
 .site-nav .menu-icon { display: none; }
-.site-nav .page-link { color: #111; line-height: 1.5; }
+.site-nav .page-link { color: #111; line-height: 1.5; height: 20px }
 .site-nav .page-link:not(:first-child) { margin-left: 20px; }
 @media screen and (max-width: 600px) { .site-nav { position: absolute; top: 9px; right: 30px; background-color: #fdfdfd; border: 1px solid #e8e8e8; border-radius: 5px; text-align: right; }
   .site-nav .menu-icon { display: block; float: right; width: 36px; height: 26px; line-height: 0; padding-top: 10px; text-align: center; }
@@ -94,12 +94,12 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .page-heading { font-size: 20px; }
 
-.post-list { margin-left: 0; list-style: none; }
-.post-list > li { margin-bottom: 30px; }
+.post-list { margin-left: 0; list-style: none; font-size: 40px}
+.post-list > li { margin-bottom: 30px; font-size:  40px}
 
 .post-meta { font-size: 14px; color: #828282; }
 
-.post-link { display: block; font-size: 24px; }
+.post-link { display: block; font-size: 40px; }
 
 /** Posts */
 .post-header { margin-bottom: 30px; }

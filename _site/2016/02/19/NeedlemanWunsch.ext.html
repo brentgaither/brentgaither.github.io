@@ -1,5 +1,67 @@
 <!DOCTYPE html>
 <html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Needleman-Wunsch Algorithm</title>
+  <meta name="description" content="                              Brentgaither.GitHub.io by brentgaither  ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/2016/02/19/NeedlemanWunsch.ext.html">
+  <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Brent Gaither</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Needleman-Wunsch Algorithm</h1>
+    <p class="post-meta"><time datetime="2016-02-19T00:00:00-07:00" itemprop="datePublished">Feb 19, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <!DOCTYPE html>
+<html>
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -16,11 +78,6 @@
     <div id="container">
       <div class="inner">
 
-        <header>
-          <h1>Needleman-Wunsch Algorithm</h1>
-          <h2><a href="http://brentgaither.github.io">Brent Gaither</a></h2>
-        </header>
-
         <section id="downloads" class="clearfix">
           <a href="https://github.com/brentgaither" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
@@ -35,121 +92,124 @@ A global alignment will try to create the best alignment for the entire length o
 <p>I used the same read in method as last time to get sequences into our program. Next I am going to build a matrix to hold all of the posible ways for the sequences to align. This creates a matrix that has all of the alignments of the DNA strands and creates possible gaps in the sequence. If a gap is created we use a gap score to penalize because this means our sequence does not align as close. </p>
 
 <pre class="prettyprint"><code class="language-python">
-def buildGlobalMatrix(gap, misMatch, match, sequenceOne, sequenceTwo):
-  matrix = [[0 for col in range(len(sequenceTwo)+1)] 
-    for row in range(len(sequenceOne)+1)]
-    rowLength = len(sequenceOne)
-    colLength = len(sequenceTwo)
-    for i in range(1,rowLength+1): 
-        matrix[i][0] = matrix[i-1][0]+int(gap)
-        for j in range(1,colLength+1):
-            matrix [0][j] = matrix[0][j - 1] + int(gap) 
-            if (sequenceOne[i-1] == sequenceTwo[j - 1]):
-                score1 = matrix[i - 1][j - 1] + int(match)
-            else:
-                score1 = matrix[i - 1][j - 1] + int(misMatch)
-            score2 = matrix[i][j - 1] + int(gap)
-            score3 = matrix[i - 1][j] + int(gap)
-            matrix[i][j] = max(score1, score2, score3)
+  <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">buildGlobalMatrix</span><span class="p">(</span><span class="n">gap</span><span class="p">,</span> <span class="n">misMatch</span><span class="p">,</span> <span class="n">match</span><span class="p">,</span> <span class="n">sequenceOne</span><span class="p">,</span> <span class="n">sequenceTwo</span><span class="p">):</span>
+  <span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequenceTwo</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> 
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequenceOne</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">rowLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequenceOne</span><span class="p">)</span>
+    <span class="n">colLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequenceTwo</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">rowLength</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">gap</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">colLength</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">matrix</span> <span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">gap</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="n">sequenceOne</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">sequenceTwo</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
+                <span class="n">score1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">score1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">misMatch</span><span class="p">)</span>
+            <span class="n">score2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">gap</span><span class="p">)</span>
+            <span class="n">score3</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">gap</span><span class="p">)</span>
+            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">score1</span><span class="p">,</span> <span class="n">score2</span><span class="p">,</span> <span class="n">score3</span><span class="p">)</span>
 
-    return matrix
+    <span class="k">return</span> <span class="n">matrix</span>
+    </code></pre></figure>
   </code></pre>
   <p> This next method is a bit hefty... To align the sequences we take in the matrix we just created then uses the gap score to see where gaps were placed. We start at the bottom right of the matrix and move to the top right to align the sequences. When nucleotides are aligned the matrix moves diagonally and horitonally or vertically when there are gaps in a sequence.</p>
   <pre class="prettyprint"><code class="language-python">
-def buildDirectional(matrix, rowLength, colLength, gapScore):
-    directionalString = ''
-    currentRow = rowLength
-    currentCol = colLength
-    while(currentRow != 0 or currentCol != 0):
-        if(currentRow == 0):
-            directionalString = directionalString + (('H') * currentCol)
-            return directionalString
-        elif(currentCol == 0):
-            directionalString = directionalString + (('V') * currentRow)
-            return directionalString
-        elif(matrix[currentRow][currentCol - 1] + int(gapScore) == matrix[currentRow][currentCol]):
-            directionalString = directionalString + ('H')
-            currentCol = currentCol - 1
-        elif(matrix[currentRow - 1][currentCol] + int(gapScore) == matrix[currentRow][currentCol]):
-            directionalString = directionalString + ('V')
-            currentRow = currentRow - 1
-        else:
-            directionalString = directionalString + ('D')
-            currentRow = currentRow - 1
-            currentCol = currentCol - 1
-    return directionalString
+    <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">buildDirectional</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rowLength</span><span class="p">,</span> <span class="n">colLength</span><span class="p">,</span> <span class="n">gapScore</span><span class="p">):</span>
+    <span class="n">directionalString</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="n">currentRow</span> <span class="o">=</span> <span class="n">rowLength</span>
+    <span class="n">currentCol</span> <span class="o">=</span> <span class="n">colLength</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">currentRow</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">currentCol</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">currentRow</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">directionalString</span> <span class="o">=</span> <span class="n">directionalString</span> <span class="o">+</span> <span class="p">((</span><span class="s">'H'</span><span class="p">)</span> <span class="o">*</span> <span class="n">currentCol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">directionalString</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">currentCol</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">directionalString</span> <span class="o">=</span> <span class="n">directionalString</span> <span class="o">+</span> <span class="p">((</span><span class="s">'V'</span><span class="p">)</span> <span class="o">*</span> <span class="n">currentRow</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">directionalString</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">currentRow</span><span class="p">][</span><span class="n">currentCol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">gapScore</span><span class="p">)</span> <span class="o">==</span> <span class="n">matrix</span><span class="p">[</span><span class="n">currentRow</span><span class="p">][</span><span class="n">currentCol</span><span class="p">]):</span>
+            <span class="n">directionalString</span> <span class="o">=</span> <span class="n">directionalString</span> <span class="o">+</span> <span class="p">(</span><span class="s">'H'</span><span class="p">)</span>
+            <span class="n">currentCol</span> <span class="o">=</span> <span class="n">currentCol</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">currentRow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">currentCol</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">gapScore</span><span class="p">)</span> <span class="o">==</span> <span class="n">matrix</span><span class="p">[</span><span class="n">currentRow</span><span class="p">][</span><span class="n">currentCol</span><span class="p">]):</span>
+            <span class="n">directionalString</span> <span class="o">=</span> <span class="n">directionalString</span> <span class="o">+</span> <span class="p">(</span><span class="s">'V'</span><span class="p">)</span>
+            <span class="n">currentRow</span> <span class="o">=</span> <span class="n">currentRow</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">directionalString</span> <span class="o">=</span> <span class="n">directionalString</span> <span class="o">+</span> <span class="p">(</span><span class="s">'D'</span><span class="p">)</span>
+            <span class="n">currentRow</span> <span class="o">=</span> <span class="n">currentRow</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">currentCol</span> <span class="o">=</span> <span class="n">currentCol</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">directionalString</span>
+    </code></pre></figure>
   </code></pre>
     
   <p> To actually create the alignment these next two methods will take the directional string that was created and match the sequences together. The "-"s are just a way to see there is an insertion or deletion in one of the strands. The connector string makes the output a bit easier for us visually to understand how they align. </p>
   <pre class="prettyprint"><code class="language-python">
-
-  def buildAlignment(sequenceOne, sequenceTwo, directionalString):
+  <figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">buildAlignment</span><span class="p">(</span><span class="n">sequenceOne</span><span class="p">,</span> <span class="n">sequenceTwo</span><span class="p">,</span> <span class="n">directionalString</span><span class="p">):</span>
     
-    seq1Pos = len(sequenceOne)-1
-    seq2Pos = len(sequenceTwo)-1
-    dirPos = 0
-    alignSeq1 = ''
-    alignSeq2 = ''
-    while(dirPos < len(directionalString)):
+    <span class="n">seq1Pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequenceOne</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">seq2Pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequenceTwo</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">dirPos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">alignSeq1</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="n">alignSeq2</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">dirPos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">directionalString</span><span class="p">)):</span>
         
-        if(directionalString[dirPos] == "D"): 
-            alignSeq1 = sequenceOne[seq1Pos] + alignSeq1
-            alignSeq2 = sequenceTwo[seq2Pos] + alignSeq2
-            seq1Pos = seq1Pos - 1
-            seq2Pos = seq2Pos - 1
-        elif(directionalString[dirPos] == "V"):
-            alignSeq1 = sequenceOne[seq1Pos] + alignSeq1
-            alignSeq2 = '-' + alignSeq2
-            seq1Pos = seq1Pos - 1
-        else:
-            alignSeq1 = '-' + alignSeq1 
-            alignSeq2 = sequenceTwo[seq2Pos] + alignSeq2
-            seq2Pos = seq2Pos -1
-        dirPos = dirPos + 1
-    alSeq1List = list(alignSeq1)
-    alSeq2List = list(alignSeq2)
+        <span class="k">if</span><span class="p">(</span><span class="n">directionalString</span><span class="p">[</span><span class="n">dirPos</span><span class="p">]</span> <span class="o">==</span> <span class="s">"D"</span><span class="p">):</span> 
+            <span class="n">alignSeq1</span> <span class="o">=</span> <span class="n">sequenceOne</span><span class="p">[</span><span class="n">seq1Pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">alignSeq1</span>
+            <span class="n">alignSeq2</span> <span class="o">=</span> <span class="n">sequenceTwo</span><span class="p">[</span><span class="n">seq2Pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">alignSeq2</span>
+            <span class="n">seq1Pos</span> <span class="o">=</span> <span class="n">seq1Pos</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">seq2Pos</span> <span class="o">=</span> <span class="n">seq2Pos</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">directionalString</span><span class="p">[</span><span class="n">dirPos</span><span class="p">]</span> <span class="o">==</span> <span class="s">"V"</span><span class="p">):</span>
+            <span class="n">alignSeq1</span> <span class="o">=</span> <span class="n">sequenceOne</span><span class="p">[</span><span class="n">seq1Pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">alignSeq1</span>
+            <span class="n">alignSeq2</span> <span class="o">=</span> <span class="s">'-'</span> <span class="o">+</span> <span class="n">alignSeq2</span>
+            <span class="n">seq1Pos</span> <span class="o">=</span> <span class="n">seq1Pos</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">alignSeq1</span> <span class="o">=</span> <span class="s">'-'</span> <span class="o">+</span> <span class="n">alignSeq1</span> 
+            <span class="n">alignSeq2</span> <span class="o">=</span> <span class="n">sequenceTwo</span><span class="p">[</span><span class="n">seq2Pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">alignSeq2</span>
+            <span class="n">seq2Pos</span> <span class="o">=</span> <span class="n">seq2Pos</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">dirPos</span> <span class="o">=</span> <span class="n">dirPos</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">alSeq1List</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">alignSeq1</span><span class="p">)</span>
+    <span class="n">alSeq2List</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">alignSeq2</span><span class="p">)</span>
 
-    connectors, alignmentScore = createConnections(alSeq1List, alSeq2List)
+    <span class="n">connectors</span><span class="p">,</span> <span class="n">alignmentScore</span> <span class="o">=</span> <span class="n">createConnections</span><span class="p">(</span><span class="n">alSeq1List</span><span class="p">,</span> <span class="n">alSeq2List</span><span class="p">)</span>
 
-    return alignSeq1, alignSeq2, connectors, alignmentScore
+    <span class="k">return</span> <span class="n">alignSeq1</span><span class="p">,</span> <span class="n">alignSeq2</span><span class="p">,</span> <span class="n">connectors</span><span class="p">,</span> <span class="n">alignmentScore</span>
 
-def createConnections(alSeq1List, alSeq2List):
+<span class="k">def</span> <span class="nf">createConnections</span><span class="p">(</span><span class="n">alSeq1List</span><span class="p">,</span> <span class="n">alSeq2List</span><span class="p">):</span>
 
-    connectors = ""
-    alignmentScore = 0
-    for char1, char2 in zip(alSeq1List, alSeq2List):
-        if char1 == char2:
-            connectors = connectors + "|"
-            alignmentScore = alignmentScore + 1
+    <span class="n">connectors</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="n">alignmentScore</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">char1</span><span class="p">,</span> <span class="n">char2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">alSeq1List</span><span class="p">,</span> <span class="n">alSeq2List</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">char1</span> <span class="o">==</span> <span class="n">char2</span><span class="p">:</span>
+            <span class="n">connectors</span> <span class="o">=</span> <span class="n">connectors</span> <span class="o">+</span> <span class="s">"|"</span>
+            <span class="n">alignmentScore</span> <span class="o">=</span> <span class="n">alignmentScore</span> <span class="o">+</span> <span class="mi">1</span>
 
-        else:
-            if char1 == "-" or char2 == "-":
-                connectors = connectors + " "
-            else:
-                connectors = connectors + "."
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">char1</span> <span class="o">==</span> <span class="s">"-"</span> <span class="ow">or</span> <span class="n">char2</span> <span class="o">==</span> <span class="s">"-"</span><span class="p">:</span>
+                <span class="n">connectors</span> <span class="o">=</span> <span class="n">connectors</span> <span class="o">+</span> <span class="s">" "</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">connectors</span> <span class="o">=</span> <span class="n">connectors</span> <span class="o">+</span> <span class="s">"."</span>
 
-    return connectors, alignmentScore
+    <span class="k">return</span> <span class="n">connectors</span><span class="p">,</span> <span class="n">alignmentScore</span>
+    </code></pre></figure>
   </code></pre>
   <p> In my full project on github I have two other ways to align the sequences (locally and semi-globally). This last method just prints out the sequences nicely.
   </p>
   <pre class="prettyprint"><code class="language-python">
-def printAlignment(alignSeq1, alignSeq2, connectors, outfile):
-    line = 0
-    nucleotideCount = 1
-    charPerLine = 50
-    for line in range(line,len(alignSeq1),charPerLine):
-        print(str(nucleotideCount) + " " + 
-          alignSeq1[line:line + charPerLine])
-        print(len(str(nucleotideCount)) + " " + " " + 
-            connectors[line:line + charPerLine])
-        print(str(nucleotideCount) + " " + 
-          alignSeq2[line:line + charPerLine])
-        nucleotideCount = nucleotideCount + charPerLine
+    <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">printAlignment</span><span class="p">(</span><span class="n">alignSeq1</span><span class="p">,</span> <span class="n">alignSeq2</span><span class="p">,</span> <span class="n">connectors</span><span class="p">):</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nucleotideCount</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">charPerLine</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">alignSeq1</span><span class="p">),</span><span class="n">charPerLine</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">nucleotideCount</span><span class="p">)</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> 
+          <span class="n">alignSeq1</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="n">line</span> <span class="o">+</span> <span class="n">charPerLine</span><span class="p">])</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">nucleotideCount</span><span class="p">))</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> 
+            <span class="n">connectors</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="n">line</span> <span class="o">+</span> <span class="n">charPerLine</span><span class="p">])</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">nucleotideCount</span><span class="p">)</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> 
+          <span class="n">alignSeq2</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="n">line</span> <span class="o">+</span> <span class="n">charPerLine</span><span class="p">])</span>
+        <span class="n">nucleotideCount</span> <span class="o">=</span> <span class="n">nucleotideCount</span> <span class="o">+</span> <span class="n">charPerLine</span>
+        </code></pre></figure>
   </code></pre>
         </section>
 
         <footer>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
         </footer>
 
                   <script type="text/javascript">
@@ -166,4 +226,54 @@ def printAlignment(alignSeq1, alignSeq2, connectors, outfile):
       </div>
     </div>
   </body>
+</html>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Brent Gaither</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Brent Gaither</li>
+          <li><a href="mailto:brent.w.gaither@gmail.com">brent.w.gaither@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/brentgaither"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">brentgaither</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Brent Gaither. This is my personal site for bioinformatics and other cool things I learn about. 
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
 </html>
