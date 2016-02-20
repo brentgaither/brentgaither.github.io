@@ -6,9 +6,331 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 17 Feb 2016 21:08:27 -0700</pubDate>
-    <lastBuildDate>Wed, 17 Feb 2016 21:08:27 -0700</lastBuildDate>
+    <pubDate>Fri, 19 Feb 2016 22:49:42 -0700</pubDate>
+    <lastBuildDate>Fri, 19 Feb 2016 22:49:42 -0700</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
+    
+      <item>
+        <title>Needlemanwunsch</title>
+        <description>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#39;utf-8&#39;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot;&gt;
+    &lt;link href=&#39;https://fonts.googleapis.com/css?family=Chivo:900&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/stylesheet.css&quot; media=&quot;screen&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/print.css&quot; media=&quot;print&quot;&gt;
+    &lt;!--[if lt IE 9]&gt;
+    &lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;title&gt;Brentgaither.GitHub.io by brentgaither&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div id=&quot;container&quot;&gt;
+      &lt;div class=&quot;inner&quot;&gt;
+
+        &lt;header&gt;
+          &lt;h1&gt;Needleman-Wunsch Algorithm&lt;/h1&gt;
+          &lt;h2&gt;&lt;a href=&quot;http://brentgaither.github.io&quot;&gt;Brent Gaither&lt;/a&gt;&lt;/h2&gt;
+        &lt;/header&gt;
+
+        &lt;section id=&quot;downloads&quot; class=&quot;clearfix&quot;&gt;
+          &lt;a href=&quot;https://github.com/brentgaither&quot; id=&quot;view-on-github&quot; class=&quot;button&quot;&gt;&lt;span&gt;View on GitHub&lt;/span&gt;&lt;/a&gt;
+        &lt;/section&gt;
+
+        &lt;hr&gt;
+
+        &lt;section id=&quot;main_content&quot;&gt;
+
+&lt;p&gt;In the last post I explained a very simple way to compare DNA strands. Although this does give us an idea of how similar two sequences are it has some problems. If a deletion or insertion occurs in two places the sequences will not align correctly. If the sequences are similar in some sections but have large insertions or deletions the last program will fail to properly detect how they should align. We can see patterns quickly with small sequences but to be able to anaylze a real genome you need to use computers. We can use a global alignment to align DNA more reliabliy.
+A global alignment will try to create the best alignment for the entire length of the DNA sequences. This might not be the best choice though if you believe you have a subsection of your DNA in the strand you are comparing it to. This is best for sequences that represent the whole portion of the same DNA you are look at for example an entire gene in a downy woodpecker and the gene in a red headed woodpecker. Remember though this does not tell us anything about function of the gene just the differences in nucleotides.&lt;/p&gt;
+
+&lt;p&gt;I used the same read in method as last time to get sequences into our program. Next I am going to build a matrix to hold all of the posible ways for the sequences to align. This creates a matrix that has all of the alignments of the DNA strands and creates possible gaps in the sequence. If a gap is created we use a gap score to penalize because this means our sequence does not align as close. &lt;/p&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def buildGlobalMatrix(gap, misMatch, match, sequenceOne, sequenceTwo):
+  matrix = [[0 for col in range(len(sequenceTwo)+1)] 
+    for row in range(len(sequenceOne)+1)]
+    rowLength = len(sequenceOne)
+    colLength = len(sequenceTwo)
+    for i in range(1,rowLength+1): 
+        matrix[i][0] = matrix[i-1][0]+int(gap)
+        for j in range(1,colLength+1):
+            matrix [0][j] = matrix[0][j - 1] + int(gap) 
+            if (sequenceOne[i-1] == sequenceTwo[j - 1]):
+                score1 = matrix[i - 1][j - 1] + int(match)
+            else:
+                score1 = matrix[i - 1][j - 1] + int(misMatch)
+            score2 = matrix[i][j - 1] + int(gap)
+            score3 = matrix[i - 1][j] + int(gap)
+            matrix[i][j] = max(score1, score2, score3)
+
+    return matrix
+  &lt;/code&gt;&lt;/pre&gt;
+  &lt;p&gt; This next method is a bit hefty... To align the sequences we take in the matrix we just created then uses the gap score to see where gaps were placed. We start at the bottom right of the matrix and move to the top right to align the sequences. When nucleotides are aligned the matrix moves diagonally and horitonally or vertically when there are gaps in a sequence.&lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def buildDirectional(matrix, rowLength, colLength, gapScore):
+    directionalString = &#39;&#39;
+    currentRow = rowLength
+    currentCol = colLength
+    while(currentRow != 0 or currentCol != 0):
+        if(currentRow == 0):
+            directionalString = directionalString + ((&#39;H&#39;) * currentCol)
+            return directionalString
+        elif(currentCol == 0):
+            directionalString = directionalString + ((&#39;V&#39;) * currentRow)
+            return directionalString
+        elif(matrix[currentRow][currentCol - 1] + int(gapScore) == matrix[currentRow][currentCol]):
+            directionalString = directionalString + (&#39;H&#39;)
+            currentCol = currentCol - 1
+        elif(matrix[currentRow - 1][currentCol] + int(gapScore) == matrix[currentRow][currentCol]):
+            directionalString = directionalString + (&#39;V&#39;)
+            currentRow = currentRow - 1
+        else:
+            directionalString = directionalString + (&#39;D&#39;)
+            currentRow = currentRow - 1
+            currentCol = currentCol - 1
+    return directionalString
+  &lt;/code&gt;&lt;/pre&gt;
+    
+  &lt;p&gt; To actually create the alignment these next two methods will take the directional string that was created and match the sequences together. The &quot;-&quot;s are just a way to see there is an insertion or deletion in one of the strands. The connector string makes the output a bit easier for us visually to understand how they align. &lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+
+  def buildAlignment(sequenceOne, sequenceTwo, directionalString):
+    
+    seq1Pos = len(sequenceOne)-1
+    seq2Pos = len(sequenceTwo)-1
+    dirPos = 0
+    alignSeq1 = &#39;&#39;
+    alignSeq2 = &#39;&#39;
+    while(dirPos &lt; len(directionalString)):
+        
+        if(directionalString[dirPos] == &quot;D&quot;): 
+            alignSeq1 = sequenceOne[seq1Pos] + alignSeq1
+            alignSeq2 = sequenceTwo[seq2Pos] + alignSeq2
+            seq1Pos = seq1Pos - 1
+            seq2Pos = seq2Pos - 1
+        elif(directionalString[dirPos] == &quot;V&quot;):
+            alignSeq1 = sequenceOne[seq1Pos] + alignSeq1
+            alignSeq2 = &#39;-&#39; + alignSeq2
+            seq1Pos = seq1Pos - 1
+        else:
+            alignSeq1 = &#39;-&#39; + alignSeq1 
+            alignSeq2 = sequenceTwo[seq2Pos] + alignSeq2
+            seq2Pos = seq2Pos -1
+        dirPos = dirPos + 1
+    alSeq1List = list(alignSeq1)
+    alSeq2List = list(alignSeq2)
+
+    connectors, alignmentScore = createConnections(alSeq1List, alSeq2List)
+
+    return alignSeq1, alignSeq2, connectors, alignmentScore
+
+def createConnections(alSeq1List, alSeq2List):
+
+    connectors = &quot;&quot;
+    alignmentScore = 0
+    for char1, char2 in zip(alSeq1List, alSeq2List):
+        if char1 == char2:
+            connectors = connectors + &quot;|&quot;
+            alignmentScore = alignmentScore + 1
+
+        else:
+            if char1 == &quot;-&quot; or char2 == &quot;-&quot;:
+                connectors = connectors + &quot; &quot;
+            else:
+                connectors = connectors + &quot;.&quot;
+
+    return connectors, alignmentScore
+  &lt;/code&gt;&lt;/pre&gt;
+  &lt;p&gt; In my full project on github I have two other ways to align the sequences (locally and semi-globally). This last method just prints out the sequences nicely.
+  &lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def printAlignment(alignSeq1, alignSeq2, connectors, outfile):
+    line = 0
+    nucleotideCount = 1
+    charPerLine = 50
+    for line in range(line,len(alignSeq1),charPerLine):
+        print(str(nucleotideCount) + &quot; &quot; + 
+          alignSeq1[line:line + charPerLine])
+        print(len(str(nucleotideCount)) + &quot; &quot; + &quot; &quot; + 
+            connectors[line:line + charPerLine])
+        print(str(nucleotideCount) + &quot; &quot; + 
+          alignSeq2[line:line + charPerLine])
+        nucleotideCount = nucleotideCount + charPerLine
+  &lt;/code&gt;&lt;/pre&gt;
+        &lt;/section&gt;
+
+        &lt;footer&gt;
+          This page was generated by &lt;a href=&quot;https://pages.github.com&quot;&gt;GitHub Pages&lt;/a&gt;. Tactile theme by &lt;a href=&quot;https://twitter.com/jasonlong&quot;&gt;Jason Long&lt;/a&gt;.
+        &lt;/footer&gt;
+
+                  &lt;script type=&quot;text/javascript&quot;&gt;
+            var gaJsHost = ((&quot;https:&quot; == document.location.protocol) ? &quot;https://ssl.&quot; : &quot;http://www.&quot;);
+            document.write(unescape(&quot;%3Cscript src=&#39;&quot; + gaJsHost + &quot;google-analytics.com/ga.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&quot;));
+          &lt;/script&gt;
+          &lt;script type=&quot;text/javascript&quot;&gt;
+            try {
+              var pageTracker = _gat._getTracker(&quot;UA-73767757-1&quot;);
+            pageTracker._trackPageview();
+            } catch(err) {}
+          &lt;/script&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+        <pubDate>Fri, 19 Feb 2016 00:00:00 -0700</pubDate>
+        <link>http://yourdomain.com/2016/02/19/NeedlemanWunsch.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2016/02/19/NeedlemanWunsch.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Matchingsequences.ext</title>
+        <description>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#39;utf-8&#39;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot;&gt;
+    &lt;link href=&#39;https://fonts.googleapis.com/css?family=Chivo:900&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/stylesheet.css&quot; media=&quot;screen&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/print.css&quot; media=&quot;print&quot;&gt;
+    &lt;!--[if lt IE 9]&gt;
+    &lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;title&gt;Brentgaither.GitHub.io by brentgaither&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div id=&quot;container&quot;&gt;
+      &lt;div class=&quot;inner&quot;&gt;
+
+        &lt;header&gt;
+          &lt;h1&gt;Aligning DNA&lt;/h1&gt;
+          &lt;h2&gt;&lt;a href=&quot;http://brentgaither.github.io&quot;&gt;Brent Gaither&lt;/a&gt;&lt;/h2&gt;
+        &lt;/header&gt;
+
+        &lt;section id=&quot;downloads&quot; class=&quot;clearfix&quot;&gt;
+          &lt;a href=&quot;https://github.com/brentgaither&quot; id=&quot;view-on-github&quot; class=&quot;button&quot;&gt;&lt;span&gt;View on GitHub&lt;/span&gt;&lt;/a&gt;
+        &lt;/section&gt;
+
+        &lt;hr&gt;
+
+        &lt;section id=&quot;main_content&quot;&gt;
+          &lt;p&gt;This first program is here to show how easy it is to start learning about bioinformatics using python. This program
+quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
+for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.&lt;/p&gt;
+&lt;p&gt;I started with a simple method to read in a FASTA formatted file. This is used in most of my programs since FASTA files are a standard. &lt;/p&gt;
+
+
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def readInFile(infile): \n
+    sequence = &quot;&quot; 
+    infile.readline()  # bypass &gt; header line
+    for line in infile:
+        line = line.replace(&#39;\n&#39;, &#39;&#39;)
+        sequence = sequence + line
+        sequence = sequence.upper()
+    infile.close()
+    return sequence
+  &lt;/code&gt;&lt;/pre&gt;
+
+  &lt;p&gt;This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works. &lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def comparison(seq1,seq2):
+        
+    counterComp = 0 
+
+    for iterator in range(0,len(seq1)):
+        #find matching nucleotides and add total 
+        if(seq1[iterator] == seq2[iterator]):
+             counterComp += 1
+    if(counterComp == 0):
+        print (&quot;no mismatches found - sequences are identical&quot;)
+    else:        
+        print(seq1)
+        print(seq2)
+        print(&quot;Sequences are identical length with &quot; + str(counterComp) 
+            + &quot; matches out of &quot; + str(len(seq1)) + &quot; nucleotides&quot;)
+  &lt;/code&gt;&lt;/pre&gt;
+  &lt;p&gt; We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.&lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+def comparisonUnequal(seq1,seq2):
+    difference = 0
+    deletion =&#39;&#39;
+
+    bestFit = list(&#39;&#39;)
+    counter = 0
+    if(len(seq1) &lt; len(seq2)):
+        seq1, seq2 = switchSequences(seq1,seq2)
+
+    difference = len(seq1) - len(seq2)
+    shortSeq = len(seq2)
+
+    #create spaces for deletion
+    for i in range(0,difference):
+        deletion = deletion + &#39;-&#39;   
+
+    #iterate through sequence moving deletion down each nucleotide
+    for iterator in range(0,shortSeq+1):
+        counter = 0 #resets counter to 0
+        newSeq2 = seq2[0:iterator] + deletion + seq2[iterator:shortSeq] 
+        #count number of matching nucleotides put in list
+        for i in range(0,shortSeq+1):
+            if seq1[i] == newSeq2[i]:
+                counter = int(counter)+ 1
+        bestFit.append(int(counter))
+    print(&quot;The best matching sequence is...&quot;)
+    print(seq1)
+    print(seq2[0:bestFit.index(max(bestFit))] + deletion + 
+        seq2[bestFit.index(max(bestFit)):shortSeq])
+    print(&quot;There are &quot; + str(max(bestFit)) + &quot; matching nucleotides&quot;)
+    print(&quot;A deletion of &quot; + str(difference) + 
+        &quot; nucleotide(s) occurred at nucleotide(s) &quot; 
+        + str(bestFit.index(max(bestFit))+1) + &quot;-&quot;+ 
+        str(bestFit.index(max(bestFit))+difference))
+  &lt;/code&gt;&lt;/pre&gt;
+  &lt;p&gt; I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
+  &lt;/p&gt;
+  &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;
+  def switchSequences(seq1,seq2):
+      temp = seq1
+      seq1 = seq2
+      seq2 = temp
+      return seq1, seq2
+  &lt;/code&gt;&lt;/pre&gt;
+        &lt;/section&gt;
+
+        &lt;footer&gt;
+          This page was generated by &lt;a href=&quot;https://pages.github.com&quot;&gt;GitHub Pages&lt;/a&gt;. Tactile theme by &lt;a href=&quot;https://twitter.com/jasonlong&quot;&gt;Jason Long&lt;/a&gt;.
+        &lt;/footer&gt;
+
+                  &lt;script type=&quot;text/javascript&quot;&gt;
+            var gaJsHost = ((&quot;https:&quot; == document.location.protocol) ? &quot;https://ssl.&quot; : &quot;http://www.&quot;);
+            document.write(unescape(&quot;%3Cscript src=&#39;&quot; + gaJsHost + &quot;google-analytics.com/ga.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&quot;));
+          &lt;/script&gt;
+          &lt;script type=&quot;text/javascript&quot;&gt;
+            try {
+              var pageTracker = _gat._getTracker(&quot;UA-73767757-1&quot;);
+            pageTracker._trackPageview();
+            } catch(err) {}
+          &lt;/script&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</description>
+        <pubDate>Fri, 19 Feb 2016 00:00:00 -0700</pubDate>
+        <link>http://yourdomain.com/2016/02/19/MatchingSequences.ext.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2016/02/19/MatchingSequences.ext.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Welcome to Jekyll!</title>
