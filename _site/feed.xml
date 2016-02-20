@@ -6,8 +6,8 @@
 </description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 20 Feb 2016 15:51:41 -0700</pubDate>
-    <lastBuildDate>Sat, 20 Feb 2016 15:51:41 -0700</lastBuildDate>
+    <pubDate>Sat, 20 Feb 2016 16:45:15 -0700</pubDate>
+    <lastBuildDate>Sat, 20 Feb 2016 16:45:15 -0700</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -210,7 +210,8 @@ A global alignment will try to create the best alignment for the entire length o
         &lt;hr&gt;
 
         &lt;section id=&quot;main_content&quot;&gt;
-          &lt;p&gt;This first program is here to show how easy it is to start learning about bioinformatics using python. This program
+          
+&lt;p&gt;This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
 for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.&lt;/p&gt;
 &lt;p&gt;I started with a simple method to read in a FASTA formatted file. This is used in most of my programs since FASTA files are a standard. &lt;/p&gt;
