@@ -1,9 +1,9 @@
 ---
-layout: post
+layout: default
 title: Aligning DNA
 ---
+ 
 
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset='utf-8'>
@@ -30,7 +30,7 @@ title: Aligning DNA
 <p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
 for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.</p>
-<p>I started with a simple method to read in a FASTA formatted file. This is used in most of my programs since FASTA files are a standard. </p>
+<p>I started with a simple method to read in a <a href ="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard. </p>
 
 
 <pre class="prettyprint"><code class="language-python">

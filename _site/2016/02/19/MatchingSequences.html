@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-  <link rel="stylesheet" type="text/css" href="main.css" media="screen">
+  
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,16 +11,16 @@
   <title>Aligning DNA</title>
   <meta name="description" content="                      Brentgaither.GitHub.io by brentgaither  ">
 
-  <link rel="stylesheet" type="text/css" href="/main.css" media="screen">
-  <link rel="canonical" href="/2016/02/19/MatchingSequences.html">
-  <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="/feed.xml">
+  <link rel="stylesheet" href="/main.css">
+  <link rel="canonical" href="http://brentgaither.github.io/2016/02/19/MatchingSequences.html">
+  <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://brentgaither.github.io/feed.xml">
 </head>
 
 
   <body>
 
     
-<link rel="stylesheet" type="text/css" href="main.css" media="screen">
+
 <header class="site-header">
 
   <div class="wrapper">
@@ -45,6 +46,8 @@
         
           
         
+          
+        
       </div>
     </nav>
 
@@ -55,21 +58,11 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <link rel="stylesheet" type="text/css" href="/main.css" media="screen">
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Aligning DNA</h1>
-    <p class="post-meta"><time datetime="2016-02-19T00:00:00-07:00" itemprop="datePublished">Feb 19, 2016</time></p>
-  </header>
-
-  <div class="post-content" itemprop="articleBody">
-    <!DOCTYPE html>
-<html>
+        <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link href="https://fonts.googleapis.com/css?family=Chivo:900" rel="stylesheet" type="text/css" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -84,18 +77,19 @@
           <a href="https://github.com/brentgaither" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
-        <hr>
+        <hr />
 
         <section id="main_content">
           
 <p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
 for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.</p>
-<p>I started with a simple method to read in a FASTA formatted file. This is used in most of my programs since FASTA files are a standard. </p>
+<p>I started with a simple method to read in a <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard. </p>
 
 
 <pre class="prettyprint"><code class="language-python">
-  <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">readInFile</span><span class="p">(</span><span class="n">infile</span><span class="p">):</span> \<span class="n">n</span>
+  
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">readInFile</span><span class="p">(</span><span class="n">infile</span><span class="p">):</span> \<span class="n">n</span>
     <span class="n">sequence</span> <span class="o">=</span> <span class="s">""</span> 
     <span class="n">infile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c"># bypass &gt; header line</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
@@ -105,11 +99,13 @@ for alignment style and direction. This does not however take into account all o
     <span class="n">infile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">sequence</span>
     </code></pre></figure>
+
   </code></pre>
 
   <p>This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works. </p>
   <pre class="prettyprint"><code class="language-python">
-    <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparison</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
+    
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparison</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
         
     <span class="n">counterComp</span> <span class="o">=</span> <span class="mi">0</span> 
 
@@ -125,10 +121,12 @@ for alignment style and direction. This does not however take into account all o
         <span class="k">print</span><span class="p">(</span><span class="s">"Sequences are identical length with "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counterComp</span><span class="p">)</span> 
             <span class="o">+</span> <span class="s">" matches out of "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">))</span> <span class="o">+</span> <span class="s">" nucleotides"</span><span class="p">)</span>
   </code></pre></figure>
+
   </code></pre>
   <p> We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.</p>
   <pre class="prettyprint"><code class="language-python">
-    <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparisonUnequal</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
+    
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparisonUnequal</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
     <span class="n">difference</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">deletion</span> <span class="o">=</span><span class="s">''</span>
 
@@ -163,16 +161,19 @@ for alignment style and direction. This does not however take into account all o
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">"-"</span><span class="o">+</span> 
         <span class="nb">str</span><span class="p">(</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))</span><span class="o">+</span><span class="n">difference</span><span class="p">))</span>
   </code></pre></figure>
+
   </code></pre>
   <p> I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
   </p>
   <pre class="prettyprint"><code class="language-python">
-    <figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">switchSequences</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
+    
+<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">switchSequences</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
       <span class="n">temp</span> <span class="o">=</span> <span class="n">seq1</span>
       <span class="n">seq1</span> <span class="o">=</span> <span class="n">seq2</span>
       <span class="n">seq2</span> <span class="o">=</span> <span class="n">temp</span>
       <span class="k">return</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span>
   </code></pre></figure>
+
   </code></pre>
         </section>
 
@@ -195,10 +196,6 @@ for alignment style and direction. This does not however take into account all o
     </div>
   </body>
 </html>
-
-  </div>
-
-</article>
 
       </div>
     </div>

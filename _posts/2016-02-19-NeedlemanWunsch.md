@@ -2,8 +2,7 @@
 layout: post
 title: Needleman-Wunsch Algorithm
 ---
-
-<!DOCTYPE html>
+ 
 <html>
   <head>
     <meta charset='utf-8'>
