@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Brent Gaither</title>
-    <description>Brent Gaither. This is my personal site for bioinformatics and other cool things I learn about. 
+    <description>Brent Gaither. This is my personal site for bioinformatics and other cool things I am learning about. 
 </description>
     <link>http://brentgaither.github.io/</link>
     <atom:link href="http://brentgaither.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 23 Feb 2016 17:07:41 -0700</pubDate>
-    <lastBuildDate>Tue, 23 Feb 2016 17:07:41 -0700</lastBuildDate>
+    <pubDate>Sun, 20 Mar 2016 20:07:32 -0600</pubDate>
+    <lastBuildDate>Sun, 20 Mar 2016 20:07:32 -0600</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>

@@ -1,9 +1,9 @@
 # Site settings
 title: Brent Gaither
-email: brent.w.gaither@gmail.com
+email: brent[dot]w[dot]gaither[at]gmail[dot]com
 description: > # this means to ignore newlines until "baseurl:"
   Brent Gaither. This is my personal site for bioinformatics and other
-  cool things I learn about. 
+  cool things I am learning about. 
 url: "http://brentgaither.github.io" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  brentgaither
