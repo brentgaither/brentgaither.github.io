@@ -1,0 +1,71 @@
+---
+layout: post
+title: C# Guard
+---
+ 
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Brentgaither.GitHub.io by brentgaither</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <hr>
+
+        <section id="main_content">
+
+<p>I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the tactics I have learned to deal with issues that took more some searching.</p>
+
+<p>Null references have been called a billion dollar mistake. I leanred a pretty slick way to deal with them that is easy to use and consistent. A guard class can be used to ensure the object you are passing in to a method does not break functionality.</p>
+
+<pre class="prettyprint"><code class="language-Csharp">
+  {% highlight Csharp %}
+    public static class Guard
+    {
+
+        public static void NotNull<T>(T obj, string message = "Paramter cannot be null")
+        {
+            if (!object.ReferenceEquals(null, data)) return;
+
+            throw new ArgumentNullException(null, message);
+        }
+        public static void NotNullOrEmpty(string checkString, string message = "String paramter can not be null or empty")
+        {
+            if (string.IsNullOrEmpty(checkString))
+            {
+                throw new ArgumentException(message);
+            }
+            return;
+        }
+    }
+    {% endhighlight %}
+    
+  <p> This class is can be used to guard against any object that you want to use in a method. This is really great to be able to throw and error easily by just typing...  </p>
+    {% highlight Csharp %}
+    public class Guard
+    {
+
+        public ActionResult SaveNewOrder(NewOrder order)
+        {
+            Guard.Notnull(order);
+
+            var createOrder = new CreateOrder();
+            createOrder.save(order);
+            return View();
+        }
+    }
+    {% endhighlight %}
+        </section>
+
+      </div>
+    </div>
+  </body>
+</html>
