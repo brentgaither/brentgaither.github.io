@@ -4,28 +4,25 @@ title: Needleman-Wunsch Algorithm
 ---
  
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
 
-        <hr>
+<body>
+<div id="container">
+<div class="inner">
 
-        <section id="main_content">
+
+
+<section id="main_content">
+
 
 <p>In the last post I explained a very simple way to compare DNA strands. Although this does give us an idea of how similar two sequences are it has some problems. If a deletion or insertion occurs in two places the sequences will not align correctly. If the sequences are similar in some sections but have large insertions or deletions the last program will fail to properly detect how they should align. We can see patterns quickly with small sequences but to be able to anaylze a real genome you need to use computers. We can use a global alignment to align DNA more reliabliy.
 A global alignment will try to create the best alignment for the entire length of the DNA sequences. This might not be the best choice though if you believe you have a subsection of your DNA in the strand you are comparing it to. This is best for sequences that represent the whole portion of the same DNA you are look at for example an entire gene in a downy woodpecker and the gene in a red headed woodpecker. Remember though this does not tell us anything about function of the gene just the differences in nucleotides.</p>
 
+
 <p>I used the same read in method as last time to get sequences into our program. Next I am going to build a matrix to hold all of the posible ways for the sequences to align. This creates a matrix that has all of the alignments of the DNA strands and creates possible gaps in the sequence. If a gap is created we use a gap score to penalize because this means our sequence does not align as close. </p>
+
+
+
 
 <pre class="prettyprint"><code class="language-python">
   {% highlight python %}
@@ -63,10 +60,12 @@ def buildDirectional(matrix, rowLength, colLength, gapScore):
         elif(currentCol == 0):
             directionalString = directionalString + (('V') * currentRow)
             return directionalString
-        elif(matrix[currentRow][currentCol - 1] + int(gapScore) == matrix[currentRow][currentCol]):
+        elif(matrix[currentRow][currentCol - 1] + 
+                int(gapScore) == matrix[currentRow][currentCol]):
             directionalString = directionalString + ('H')
             currentCol = currentCol - 1
-        elif(matrix[currentRow - 1][currentCol] + int(gapScore) == matrix[currentRow][currentCol]):
+        elif(matrix[currentRow - 1][currentCol] + 
+                int(gapScore) == matrix[currentRow][currentCol]):
             directionalString = directionalString + ('V')
             currentRow = currentRow - 1
         else:
@@ -146,20 +145,8 @@ def printAlignment(alignSeq1, alignSeq2, connectors):
         nucleotideCount = nucleotideCount + charPerLine
         {% endhighlight %}
   </code></pre>
-        </section>
-
-            <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-73767757-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-      </div>
-    </div>
+</section>
+</div>
+</div>
   </body>
 </html>

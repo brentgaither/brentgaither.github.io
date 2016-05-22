@@ -1,36 +1,18 @@
+
+<div class="vert-offset"></div>
 <footer class="site-footer">
 
-  <div class="wrapper">
+  <div class="wrapper col-md-12">
 
-    <h2 class="footer-heading">{{ site.title }}</h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li>{{ site.title }}</li>
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
-
-        </ul>
-        <footer>
-          <br><br>
-          <img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a>.
-        </footer>
-      </div>
-
-      <div class="footer-col footer-col-3">
+    
+        <table class="contact-list col-md-9">
+          <tr><td>{{ site.title }}<td></tr>
+          <tr><td>{{ site.email }}<td></tr>
+          <tr><td><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a></td></tr>
+        </table>
+      <div class="footer-col col-md-3">
         <p>{{ site.description }}</p>
       </div>
-    </div>
 
   </div>
 

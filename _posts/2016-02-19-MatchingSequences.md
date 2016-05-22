@@ -5,24 +5,16 @@ title: Aligning DNA
  
 
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
 
-        <hr>
+<body>
+  <div id="container">
+    <div class="inner">
+      <hr>  
 
-        <section id="main_content">
+<section id="main_content">
           
+
 <p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
 for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.</p>
@@ -113,21 +105,9 @@ def comparisonUnequal(seq1,seq2):
       return seq1, seq2
   {% endhighlight %}
   </code></pre>
-        </section>
+  </section>
+  </div>
+</div>
 
-
-                  <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-73767757-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
