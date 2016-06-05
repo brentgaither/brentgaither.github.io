@@ -21,7 +21,7 @@ for alignment style and direction. This does not however take into account all o
 <p>I started with a simple method to read in a <a href ="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard. </p>
 
 
-<pre class="prettyprint"><code class="language-python">
+
   {% highlight python %}
 def readInFile(infile): \n
     sequence = "" 
@@ -33,10 +33,10 @@ def readInFile(infile): \n
     infile.close()
     return sequence
     {% endhighlight %}
-  </code></pre>
+
 
   <p>This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works. </p>
-  <pre class="prettyprint"><code class="language-python">
+
     {% highlight python %}
 def comparison(seq1,seq2):
         
@@ -54,9 +54,9 @@ def comparison(seq1,seq2):
         print("Sequences are identical length with " + str(counterComp) 
             + " matches out of " + str(len(seq1)) + " nucleotides")
   {% endhighlight %}
-  </code></pre>
+
   <p> We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.</p>
-  <pre class="prettyprint"><code class="language-python">
+
     {% highlight python %}
 def comparisonUnequal(seq1,seq2):
     difference = 0
@@ -93,10 +93,10 @@ def comparisonUnequal(seq1,seq2):
         + str(bestFit.index(max(bestFit))+1) + "-"+ 
         str(bestFit.index(max(bestFit))+difference))
   {% endhighlight %}
-  </code></pre>
+
   <p> I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
   </p>
-  <pre class="prettyprint"><code class="language-python">
+
     {% highlight python %}
   def switchSequences(seq1,seq2):
       temp = seq1
@@ -104,7 +104,7 @@ def comparisonUnequal(seq1,seq2):
       seq2 = temp
       return seq1, seq2
   {% endhighlight %}
-  </code></pre>
+
   </section>
   </div>
 </div>

@@ -67,7 +67,7 @@ A global alignment will try to create the best alignment for the entire length o
 
 
 
-<pre class="prettyprint"><code class="language-python">
+
   
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">buildGlobalMatrix</span><span class="p">(</span><span class="n">gap</span><span class="p">,</span> <span class="n">misMatch</span><span class="p">,</span> <span class="n">match</span><span class="p">,</span> <span class="n">sequenceOne</span><span class="p">,</span> <span class="n">sequenceTwo</span><span class="p">):</span>
   <span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequenceTwo</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> 
@@ -89,9 +89,9 @@ A global alignment will try to create the best alignment for the entire length o
     <span class="k">return</span> <span class="n">matrix</span>
     </code></pre></figure>
 
-  </code></pre>
+
   <p> This next method is a bit hefty... To align the sequences we take in the matrix we just created then uses the gap score to see where gaps were placed. We start at the bottom right of the matrix and move to the top right to align the sequences. When nucleotides are aligned the matrix moves diagonally and horitonally or vertically when there are gaps in a sequence.</p>
-  <pre class="prettyprint"><code class="language-python">
+
     
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">buildDirectional</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rowLength</span><span class="p">,</span> <span class="n">colLength</span><span class="p">,</span> <span class="n">gapScore</span><span class="p">):</span>
     <span class="n">directionalString</span> <span class="o">=</span> <span class="s">''</span>
@@ -119,10 +119,10 @@ A global alignment will try to create the best alignment for the entire length o
     <span class="k">return</span> <span class="n">directionalString</span>
     </code></pre></figure>
 
-  </code></pre>
+
     
   <p> To actually create the alignment these next two methods will take the directional string that was created and match the sequences together. The "-"s are just a way to see there is an insertion or deletion in one of the strands. The connector string makes the output a bit easier for us visually to understand how they align. </p>
-  <pre class="prettyprint"><code class="language-python">
+
   
 <figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">buildAlignment</span><span class="p">(</span><span class="n">sequenceOne</span><span class="p">,</span> <span class="n">sequenceTwo</span><span class="p">,</span> <span class="n">directionalString</span><span class="p">):</span>
     
@@ -172,10 +172,10 @@ A global alignment will try to create the best alignment for the entire length o
     <span class="k">return</span> <span class="n">connectors</span><span class="p">,</span> <span class="n">alignmentScore</span>
     </code></pre></figure>
 
-  </code></pre>
+
   <p> In my full project on github I have two other ways to align the sequences (locally and semi-globally). This last method just prints out the sequences nicely.
   </p>
-  <pre class="prettyprint"><code class="language-python">
+
     
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">printAlignment</span><span class="p">(</span><span class="n">alignSeq1</span><span class="p">,</span> <span class="n">alignSeq2</span><span class="p">,</span> <span class="n">connectors</span><span class="p">):</span>
     <span class="n">line</span> <span class="o">=</span> <span class="mi">0</span>
@@ -191,7 +191,7 @@ A global alignment will try to create the best alignment for the entire length o
         <span class="n">nucleotideCount</span> <span class="o">=</span> <span class="n">nucleotideCount</span> <span class="o">+</span> <span class="n">charPerLine</span>
         </code></pre></figure>
 
-  </code></pre>
+
 </section>
 </div>
 </div>

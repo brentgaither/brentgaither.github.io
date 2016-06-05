@@ -24,7 +24,7 @@ A global alignment will try to create the best alignment for the entire length o
 
 
 
-<pre class="prettyprint"><code class="language-python">
+
   {% highlight python %}
 def buildGlobalMatrix(gap, misMatch, match, sequenceOne, sequenceTwo):
   matrix = [[0 for col in range(len(sequenceTwo)+1)] 
@@ -45,9 +45,9 @@ def buildGlobalMatrix(gap, misMatch, match, sequenceOne, sequenceTwo):
 
     return matrix
     {% endhighlight %}
-  </code></pre>
+
   <p> This next method is a bit hefty... To align the sequences we take in the matrix we just created then uses the gap score to see where gaps were placed. We start at the bottom right of the matrix and move to the top right to align the sequences. When nucleotides are aligned the matrix moves diagonally and horitonally or vertically when there are gaps in a sequence.</p>
-  <pre class="prettyprint"><code class="language-python">
+
     {% highlight python %}
 def buildDirectional(matrix, rowLength, colLength, gapScore):
     directionalString = ''
@@ -74,10 +74,10 @@ def buildDirectional(matrix, rowLength, colLength, gapScore):
             currentCol = currentCol - 1
     return directionalString
     {% endhighlight %}
-  </code></pre>
+
     
   <p> To actually create the alignment these next two methods will take the directional string that was created and match the sequences together. The "-"s are just a way to see there is an insertion or deletion in one of the strands. The connector string makes the output a bit easier for us visually to understand how they align. </p>
-  <pre class="prettyprint"><code class="language-python">
+
   {% highlight python %}
   def buildAlignment(sequenceOne, sequenceTwo, directionalString):
     
@@ -126,10 +126,10 @@ def createConnections(alSeq1List, alSeq2List):
 
     return connectors, alignmentScore
     {% endhighlight %}
-  </code></pre>
+
   <p> In my full project on github I have two other ways to align the sequences (locally and semi-globally). This last method just prints out the sequences nicely.
   </p>
-  <pre class="prettyprint"><code class="language-python">
+
     {% highlight python %}
 def printAlignment(alignSeq1, alignSeq2, connectors):
     line = 0
@@ -144,7 +144,7 @@ def printAlignment(alignSeq1, alignSeq2, connectors):
           alignSeq2[line:line + charPerLine])
         nucleotideCount = nucleotideCount + charPerLine
         {% endhighlight %}
-  </code></pre>
+
 </section>
 </div>
 </div>
