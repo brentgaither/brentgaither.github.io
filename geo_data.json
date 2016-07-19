@@ -48,6 +48,70 @@
                 "pokemon": 24, 
                 "popupContent": "If you can't catch Pikachu, just eat the cupcake \ud83d\ude2e\ud83c\udf70\ud83c\udf70 #pikachu #pokemongo #pokemon #sf #cupcakes\u2026 https://t.co/sFEPTaJw36<br/> At: Tue Jul 19 03:34:15 +0000 2016"
             }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    144.99573557, 
+                    -37.84261114
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "I can't see what all the #pokemongo fuss is about, I just found a dozen #pikachu at the\u2026 https://t.co/Cw8sTcTwR6", 
+                "created_at": "Tue Jul 19 03:39:21 +0000 2016", 
+                "pokemon": 24, 
+                "popupContent": "I can't see what all the #pokemongo fuss is about, I just found a dozen #pikachu at the\u2026 https://t.co/Cw8sTcTwR6<br/> At: Tue Jul 19 03:39:21 +0000 2016"
+            }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -122.33425306, 
+                    47.59814447
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "Well, do ya?? #pokemongo #pikachuskipslegday #outworktheworkout #focus #nomorezubats #dope @\u2026 https://t.co/gz6CL0DUA4", 
+                "created_at": "Tue Jul 19 03:42:02 +0000 2016", 
+                "pokemon": 24, 
+                "popupContent": "Well, do ya?? #pokemongo #pikachuskipslegday #outworktheworkout #focus #nomorezubats #dope @\u2026 https://t.co/gz6CL0DUA4<br/> At: Tue Jul 19 03:42:02 +0000 2016"
+            }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -73.99481, 
+                    40.68274736
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "Wait! Does this count? #pikachu #pokemon #pokemongo @ Brooklyn Carroll Gardens https://t.co/N3dOsi7Lli", 
+                "created_at": "Tue Jul 19 03:43:44 +0000 2016", 
+                "pokemon": 24, 
+                "popupContent": "Wait! Does this count? #pikachu #pokemon #pokemongo @ Brooklyn Carroll Gardens https://t.co/N3dOsi7Lli<br/> At: Tue Jul 19 03:43:44 +0000 2016"
+            }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -74.03833843, 
+                    4.74781612
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "La captura del d\u00eda. Mi primer evoluci\u00f3n final. #pidgeot #pokemongo @ Arcadia1 https://t.co/653wYuxqV3", 
+                "created_at": "Tue Jul 19 03:49:57 +0000 2016", 
+                "pokemon": 17, 
+                "popupContent": "La captura del d\u00eda. Mi primer evoluci\u00f3n final. #pidgeot #pokemongo @ Arcadia1 https://t.co/653wYuxqV3<br/> At: Tue Jul 19 03:49:57 +0000 2016"
+            }
         }
     ]
 }
