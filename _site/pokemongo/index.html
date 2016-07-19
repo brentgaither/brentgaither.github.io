@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>About</title>
+  <title>Pokemon Go!</title>
   <meta name="description" content="Brent Gaither. This is my personal site for bioinformatics and other cool things I am learning about. 
 ">
 
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   
-  <link rel="canonical" href="http://brentgaither.github.io/about/">
+  <link rel="canonical" href="http://brentgaither.github.io/pokemongo/">
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://brentgaither.github.io/feed.xml">
 </head>
 
@@ -34,13 +34,25 @@
    
 
     <div class="page-content">
-        <div class="col-lg-offset-3 col-md-offset-3">
-<h1>About</h1>
-</div>
-<div class="vert-offset"></div>
-<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3  text-center">
-This site is for some of my projects in bioinformatics and a slew of other projets. I started programming late in college but soon realized this is what I want to do with my life. In addition to programming I also enjoy climbing, skiing, running and most anything outside. Here is a link to my <a href="/Assets/gaither.resume.pdf">resume</a>. 
-</div>
+        <head>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<!-- this goes in the <head> -->
+
+<style>
+#map {
+    height: 600px;
+}
+</style>
+</head>
+<body>
+<!-- this goes in the <body> -->
+<div id="map"></div>
+</body>
+
+<script src="/javascripts/pokeMapper.js"></script>
+
 
       </div>
 

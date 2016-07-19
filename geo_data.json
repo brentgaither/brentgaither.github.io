@@ -1,0 +1,53 @@
+{
+    "type": "FeatureCollection", 
+    "features": [
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -80.35737, 
+                    25.71534
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "#Rattata was caught #PokemonGo #funny #fun #eatmorefish #Miami #pokestop instagram @ The Fish\u2026 https://t.co/FYG6ZpSbm1", 
+                "created_at": "Tue Jul 19 03:16:11 +0000 2016", 
+                "pokemon": 18, 
+                "popupContent": "#Rattata was caught #PokemonGo #funny #fun #eatmorefish #Miami #pokestop instagram @ The Fish\u2026 https://t.co/FYG6ZpSbm1<br/> At: Tue Jul 19 03:16:11 +0000 2016"
+            }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -96.78505779, 
+                    49.75703133
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "Off to a good start! Caught Pikachu as my starting #pokemongo and then showed @jessakelly while\u2026 https://t.co/8dNDIpicv7", 
+                "created_at": "Tue Jul 19 03:23:12 +0000 2016", 
+                "pokemon": 24, 
+                "popupContent": "Off to a good start! Caught Pikachu as my starting #pokemongo and then showed @jessakelly while\u2026 https://t.co/8dNDIpicv7<br/> At: Tue Jul 19 03:23:12 +0000 2016"
+            }
+        }, 
+        {
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -122.4334, 
+                    37.75121
+                ]
+            }, 
+            "type": "Feature", 
+            "properties": {
+                "text": "If you can't catch Pikachu, just eat the cupcake \ud83d\ude2e\ud83c\udf70\ud83c\udf70 #pikachu #pokemongo #pokemon #sf #cupcakes\u2026 https://t.co/sFEPTaJw36", 
+                "created_at": "Tue Jul 19 03:34:15 +0000 2016", 
+                "pokemon": 24, 
+                "popupContent": "If you can't catch Pikachu, just eat the cupcake \ud83d\ude2e\ud83c\udf70\ud83c\udf70 #pikachu #pokemongo #pokemon #sf #cupcakes\u2026 https://t.co/sFEPTaJw36<br/> At: Tue Jul 19 03:34:15 +0000 2016"
+            }
+        }
+    ]
+}
