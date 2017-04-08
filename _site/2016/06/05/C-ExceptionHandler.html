@@ -69,7 +69,7 @@
 <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The "yellow screen" can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
 
 
-<p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has.</p>
+<p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has. We should make sure that went do not give away too much information to the end user when we show errors. If you want we could change the logging for a special user or role.</p>
 
   
 <figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">CustomController</span> <span class="p">:</span> <span class="n">Controller</span>
@@ -90,8 +90,9 @@
             <span class="p">{</span>
                 <span class="n">innerException</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">InnerException</span><span class="p">.</span><span class="n">Message</span><span class="p">;</span>
             <span class="p">}</span>
-            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"ErrorMessage"</span><span class="p">,</span> <span class="s">"Error"</span><span class="p">,</span>
-            <span class="k">new</span> <span class="p">{</span> <span class="n">code</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">HResult</span><span class="p">,</span> <span class="n">message</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="n">innerException</span> <span class="p">=</span> <span class="n">innerException</span> <span class="p">});</span>
+            <span class="n">var</span> <span class="n">errorId</span> <span class="p">=</span> <span class="n">ErrorLog</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span> <span class="c1">//We should log the errors to a file or a db.
+</span>            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"ErrorMessage"</span><span class="p">,</span> <span class="s">"Error"</span><span class="p">,</span>
+            <span class="k">new</span> <span class="p">{</span> <span class="n">ErrorCode</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">HResult</span><span class="p">,</span> <span class="n">ErrorId</span> <span class="p">=</span> <span class="n">errorId</span><span class="p">});</span>
             <span class="k">base</span><span class="p">.</span><span class="nf">OnException</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -104,8 +105,7 @@
 <figure class="highlight"><pre><code class="language-csharp" data-lang="csharp">        <span class="k">public</span> <span class="k">class</span> <span class="nc">ErrorViewModel</span>
         <span class="p">{</span>
             <span class="k">public</span> <span class="kt">int</span> <span class="n">ErrorCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-            <span class="k">public</span> <span class="kt">string</span> <span class="n">Exception</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-            <span class="k">public</span> <span class="kt">string</span> <span class="n">InnerException</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+            <span class="k">public</span> <span class="kt">int</span> <span class="n">ErrorId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
         <span class="p">}</span>
     </code></pre></figure>
 
@@ -133,9 +133,8 @@
 @{
     if (@Model != null)
     {
-        <span class="nt">&lt;h3&gt;</span>Exception was : @Model.Exception<span class="nt">&lt;/h3&gt;</span>
-        <span class="nt">&lt;h3&gt;</span>Inner exception was : @Model.InnerException<span class="nt">&lt;/h3&gt;</span>
-        <span class="nt">&lt;h4&gt;</span>Exception number was : @Model.ErrorCode<span class="nt">&lt;/h4&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>Oh no! Something went wrong. Please report this error to the site admin : @Model.ErrorCode<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;h4&gt;</span>ErrorId : @Model.ErrorId<span class="nt">&lt;/h4&gt;</span>
     }
     else
     {
