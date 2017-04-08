@@ -25,7 +25,7 @@ title: C# Exception handling
 <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The "yellow screen" can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
 
 
-<p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has.</p>
+<p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has. We should make sure that went do not give away too much information to the end user when we show errors. If you want we could change the logging for a special user or role.</p>
 
   {% highlight Csharp %}
 public class CustomController : Controller
@@ -46,8 +46,9 @@ public class CustomController : Controller
             {
                 innerException = ex.InnerException.Message;
             }
+            var errorId = ErrorLog.Log(ex); //We should log the errors to a file or a db.
             filterContext.Result = RedirectToAction("ErrorMessage", "Error",
-            new { code = ex.HResult, message = ex.Message, innerException = innerException });
+            new { ErrorCode = ex.HResult, ErrorId = errorId});
             base.OnException(filterContext);
         }
     }
@@ -59,8 +60,7 @@ public class CustomController : Controller
         public class ErrorViewModel
         {
             public int ErrorCode { get; set; }
-            public string Exception { get; set; }
-            public string InnerException { get; set; }
+            public int ErrorId { get; set; }
         }
     {% endhighlight %}
 
@@ -86,9 +86,8 @@ public class CustomController : Controller
 @{
     if (@Model != null)
     {
-        <h3>Exception was : @Model.Exception</h3>
-        <h3>Inner exception was : @Model.InnerException</h3>
-        <h4>Exception number was : @Model.ErrorCode</h4>
+        <h3>Oh no! Something went wrong. Please report this error to the site admin : @Model.ErrorCode</h3>
+        <h4>ErrorId : @Model.ErrorId</h4>
     }
     else
     {
