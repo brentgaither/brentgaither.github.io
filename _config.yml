@@ -2,8 +2,7 @@
 title: Brent Gaither
 email: brent[dot]w[dot]gaither[at]gmail[dot]com
 description: > # this means to ignore newlines until "baseurl:"
-  Brent Gaither. This is my personal site for bioinformatics and other
-  cool things I am learning about. 
+  Brent Gaither. This is my personal site for some interesting problems I have ran into. 
 url: "http://brentgaither.github.io" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  brentgaither
