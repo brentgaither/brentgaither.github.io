@@ -20,7 +20,7 @@ title: Laravel - Eloquent subqueries
         <hr>
         <section id="main_content">
         <p>Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own. </p>
-          {% highlight php %}
+        {% highlight php %}
                 DB::table('users as u')
                      ->select(DB::raw('u.id, u.name'))
                      ->join('some_interesting_table as s', 's.user_id', 'u.id')

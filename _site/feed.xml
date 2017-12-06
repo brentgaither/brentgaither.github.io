@@ -4,10 +4,10 @@
     <title>Brent Gaither</title>
     <description>Brent Gaither. This is my personal site for some interesting problems I have ran into. 
 </description>
-    <link>http://brentgaither.github.io/</link>
-    <atom:link href="http://brentgaither.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 23 Aug 2017 19:45:34 -0600</pubDate>
-    <lastBuildDate>Wed, 23 Aug 2017 19:45:34 -0600</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 05 Dec 2017 21:41:48 -0700</pubDate>
+    <lastBuildDate>Tue, 05 Dec 2017 21:41:48 -0700</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -29,7 +29,7 @@
         &lt;hr /&gt;
         &lt;section id=&quot;main_content&quot;&gt;
         &lt;p&gt;Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own. &lt;/p&gt;
-          
+        
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;                DB::table('users as u')
                      -&amp;gt;select(DB::raw('u.id, u.name'))
                      -&amp;gt;join('some_interesting_table as s', 's.user_id', 'u.id')
@@ -53,8 +53,8 @@
 &lt;/html&gt;
 </description>
         <pubDate>Wed, 23 Aug 2017 00:00:00 -0600</pubDate>
-        <link>http://brentgaither.github.io/2017/08/23/EloquentSubquery.html</link>
-        <guid isPermaLink="true">http://brentgaither.github.io/2017/08/23/EloquentSubquery.html</guid>
+        <link>http://localhost:4000/2017/08/23/EloquentSubquery.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/23/EloquentSubquery.html</guid>
         
         
       </item>
@@ -177,8 +177,8 @@
 &lt;/html&gt;
 </description>
         <pubDate>Sun, 05 Jun 2016 00:00:00 -0600</pubDate>
-        <link>http://brentgaither.github.io/2016/06/05/C-ExceptionHandler.html</link>
-        <guid isPermaLink="true">http://brentgaither.github.io/2016/06/05/C-ExceptionHandler.html</guid>
+        <link>http://localhost:4000/2016/06/05/C-ExceptionHandler.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/05/C-ExceptionHandler.html</guid>
         
         
       </item>
@@ -250,8 +250,8 @@
 &lt;/html&gt;
 </description>
         <pubDate>Sat, 07 May 2016 00:00:00 -0600</pubDate>
-        <link>http://brentgaither.github.io/2016/05/07/C-Guard.html</link>
-        <guid isPermaLink="true">http://brentgaither.github.io/2016/05/07/C-Guard.html</guid>
+        <link>http://localhost:4000/2016/05/07/C-Guard.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/07/C-Guard.html</guid>
         
         
       </item>
@@ -411,8 +411,8 @@ A global alignment will try to create the best alignment for the entire length o
 &lt;/html&gt;
 </description>
         <pubDate>Fri, 19 Feb 2016 00:00:00 -0700</pubDate>
-        <link>http://brentgaither.github.io/2016/02/19/NeedlemanWunsch.html</link>
-        <guid isPermaLink="true">http://brentgaither.github.io/2016/02/19/NeedlemanWunsch.html</guid>
+        <link>http://localhost:4000/2016/02/19/NeedlemanWunsch.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/02/19/NeedlemanWunsch.html</guid>
         
         
       </item>
@@ -532,8 +532,8 @@ for alignment style and direction. This does not however take into account all o
 &lt;/html&gt;
 </description>
         <pubDate>Fri, 19 Feb 2016 00:00:00 -0700</pubDate>
-        <link>http://brentgaither.github.io/2016/02/19/MatchingSequences.html</link>
-        <guid isPermaLink="true">http://brentgaither.github.io/2016/02/19/MatchingSequences.html</guid>
+        <link>http://localhost:4000/2016/02/19/MatchingSequences.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/02/19/MatchingSequences.html</guid>
         
         
       </item>
