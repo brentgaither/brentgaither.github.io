@@ -112,22 +112,22 @@
         <span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClient</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
         <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthResult</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./authResult.model'</span><span class="p">;</span>
 
-        <span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
-        <span class="k">export</span> <span class="kr">class</span> <span class="nx">AuthService</span> <span class="p">{</span>
+        <span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+        <span class="k">export</span> <span class="kd">class</span> <span class="nx">AuthService</span> <span class="p">{</span>
 
-        <span class="nl">token</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
+        <span class="nl">token</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
 
         <span class="c1">// Create a stream of logged in status to communicate throughout app</span>
         <span class="nl">loggedIn</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
         <span class="nx">loggedIn$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">loggedIn</span><span class="p">);</span>
 
-        <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">router</span><span class="err">:</span> <span class="nx">Router</span><span class="p">,</span> <span class="k">private</span> <span class="nx">http</span><span class="err">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>  <span class="p">}</span>
+        <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>  <span class="p">}</span>
 
-        <span class="nx">getToken</span> <span class="p">()</span><span class="err">:</span> <span class="kr">string</span> <span class="p">{</span>
+        <span class="nx">getToken</span> <span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
           <span class="k">return</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">public</span> <span class="nx">tryLogin</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">public</span> <span class="nx">tryLogin</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">())</span> <span class="p">{</span>
          <span class="c1">// Send the user to the authenticaition server</span>
           <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nb">encodeURI</span><span class="p">(</span><span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">AUTHENTICATION_SERVER</span> <span class="o">+</span> <span class="s1">'?'</span>
@@ -138,7 +138,7 @@
         <span class="p">}</span>
 
 
-        <span class="k">public</span> <span class="nx">setSession</span><span class="p">(</span><span class="nx">urlFragment</span><span class="p">)</span><span class="err">:</span> <span class="k">void</span> <span class="p">{</span>
+        <span class="kr">public</span> <span class="nx">setSession</span><span class="p">(</span><span class="nx">urlFragment</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
           <span class="kd">const</span> <span class="nx">authResult</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parseQueryString</span><span class="p">(</span><span class="nx">urlFragment</span><span class="p">);</span>
           <span class="c1">// Set the time that the Access Token will expire at</span>
           <span class="kd">const</span> <span class="nx">expiresAt</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">((</span><span class="nx">authResult</span><span class="p">.</span><span class="nx">expires_in</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
@@ -148,7 +148,7 @@
           <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'expires_at'</span><span class="p">,</span> <span class="nx">expiresAt</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">public</span> <span class="nx">logout</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+        <span class="kr">public</span> <span class="nx">logout</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
           <span class="c1">// Remove tokens and expiry time from localStorage</span>
           <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">);</span>
           <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">'id_token'</span><span class="p">);</span>
@@ -157,14 +157,14 @@
           <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">'/'</span><span class="p">]);</span>
         <span class="p">}</span>
 
-        <span class="k">public</span> <span class="nx">isAuthenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+        <span class="kr">public</span> <span class="nx">isAuthenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
           <span class="c1">// Check whether the current time is past the</span>
           <span class="c1">// Access Token's expiry time</span>
           <span class="kd">const</span> <span class="nx">expiresAt</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'expires_at'</span><span class="p">));</span>
           <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">expiresAt</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">private</span> <span class="nx">parseQueryString</span> <span class="p">(</span> <span class="nx">queryString</span> <span class="p">):</span> <span class="nx">AuthResult</span> <span class="p">{</span>
+        <span class="kr">private</span> <span class="nx">parseQueryString</span> <span class="p">(</span> <span class="nx">queryString</span> <span class="p">):</span> <span class="nx">AuthResult</span> <span class="p">{</span>
           <span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{};</span>
           <span class="kd">let</span> <span class="nx">queries</span><span class="p">,</span> <span class="nx">temp</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span><span class="p">;</span>
           <span class="c1">// Split into key/value pairs</span>
@@ -189,24 +189,24 @@
         files to save all of the configurations for the authorization server.</p>
 
         
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">        <span class="k">export</span> <span class="kr">class</span> <span class="nx">AuthResult</span> <span class="p">{</span>
-          <span class="nl">access_token</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-          <span class="nl">expires_in</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-          <span class="nl">token_type</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">        <span class="k">export</span> <span class="kd">class</span> <span class="nx">AuthResult</span> <span class="p">{</span>
+          <span class="nl">access_token</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+          <span class="nl">expires_in</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+          <span class="nl">token_type</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
         <span class="p">}</span>
         </code></pre></figure>
 
 
         
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">        <span class="kr">interface</span> <span class="nx">AuthConfig</span> <span class="p">{</span>
-          <span class="nl">CLIENT_ID</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-          <span class="nl">REDIRECT</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-          <span class="nl">SCOPE</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-          <span class="nl">RESPONSE_TYPE</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-          <span class="nl">AUTHENTICATION_SERVER</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+          <span class="nl">CLIENT_ID</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+          <span class="nl">REDIRECT</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+          <span class="nl">SCOPE</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+          <span class="nl">RESPONSE_TYPE</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+          <span class="nl">AUTHENTICATION_SERVER</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">export</span> <span class="kd">const</span> <span class="nx">AUTH_CONFIG</span><span class="err">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">export</span> <span class="kd">const</span> <span class="nx">AUTH_CONFIG</span><span class="p">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
           <span class="na">CLIENT_ID</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
           <span class="na">REDIRECT</span><span class="p">:</span> <span class="s1">'http://localhost:4200/callback'</span><span class="p">,</span>
           <span class="na">SCOPE</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
@@ -226,18 +226,18 @@
         <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../auth/auth.service'</span><span class="p">;</span>
         <span class="k">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
 
-        <span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+        <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
           <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-callback'</span><span class="p">,</span>
           <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'./callback.component.html'</span><span class="p">,</span>
           <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="s1">'./callback.component.css'</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="k">export</span> <span class="kr">class</span> <span class="nx">CallbackComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+        <span class="k">export</span> <span class="kd">class</span> <span class="nx">CallbackComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
 
-          <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">authService</span><span class="err">:</span> <span class="nx">AuthService</span><span class="p">,</span> <span class="k">private</span> <span class="nx">route</span><span class="err">:</span> <span class="nx">ActivatedRoute</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+          <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">authService</span><span class="p">:</span> <span class="nx">AuthService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">route</span><span class="p">:</span> <span class="nx">ActivatedRoute</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 
-          <span class="nl">accessToken</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+          <span class="nl">accessToken</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
           <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">fragment</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">fragment</span><span class="err">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">fragment</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">fragment</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
               <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">setSession</span><span class="p">(</span><span class="nx">fragment</span><span class="p">);</span>
             <span class="p">});</span>
             <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s1">'/'</span><span class="p">;</span>
@@ -252,23 +252,23 @@
         <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
         <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../auth/auth.service'</span><span class="p">;</span>
 
-        <span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+        <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
           <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-home'</span><span class="p">,</span>
           <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'./home.component.html'</span><span class="p">,</span>
           <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="s1">'./home.component.css'</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="k">export</span> <span class="kr">class</span> <span class="nx">HomeComponent</span> <span class="p">{</span>
+        <span class="k">export</span> <span class="kd">class</span> <span class="nx">HomeComponent</span> <span class="p">{</span>
 
-          <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">authService</span><span class="err">:</span> <span class="nx">AuthService</span><span class="p">)</span> <span class="p">{}</span>
+          <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">authService</span><span class="p">:</span> <span class="nx">AuthService</span><span class="p">)</span> <span class="p">{}</span>
 
-          <span class="k">public</span> <span class="nx">logout</span><span class="p">()</span><span class="err">:</span> <span class="k">void</span> <span class="p">{</span>
+          <span class="kr">public</span> <span class="nx">logout</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">logout</span><span class="p">();</span>
           <span class="p">}</span>
-          <span class="k">public</span> <span class="nx">login</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+          <span class="kr">public</span> <span class="nx">login</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">tryLogin</span><span class="p">();</span>
           <span class="p">}</span>
 
-          <span class="k">public</span> <span class="nx">authenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+          <span class="kr">public</span> <span class="nx">authenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">();</span>
           <span class="p">}</span>
         <span class="p">}</span>
@@ -307,18 +307,18 @@
         <span class="k">import</span> <span class="p">{</span> <span class="nx">CallbackComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./callback/callback.component'</span><span class="p">;</span>
 
 
-        <span class="kd">const</span> <span class="nx">routes</span><span class="err">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="kd">const</span> <span class="nx">routes</span><span class="p">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
           <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/home'</span><span class="p">,</span> <span class="na">pathMatch</span><span class="p">:</span> <span class="s1">'full'</span> <span class="p">},</span>
           <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'home'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">HomeComponent</span><span class="p">,</span> <span class="p">},</span>
           <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'callback'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">CallbackComponent</span><span class="p">,</span> <span class="p">},</span>
         <span class="p">];</span>
 
-        <span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+        <span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
           <span class="na">imports</span><span class="p">:</span> <span class="p">[</span> <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)</span> <span class="p">],</span>
           <span class="na">exports</span><span class="p">:</span> <span class="p">[</span> <span class="nx">RouterModule</span> <span class="p">],</span>
           <span class="na">providers</span><span class="p">:</span> <span class="p">[]</span>
         <span class="p">})</span>
-        <span class="k">export</span> <span class="kr">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
+        <span class="k">export</span> <span class="kd">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
         </code></pre></figure>
 
 
@@ -335,14 +335,14 @@
       <span class="k">import</span> <span class="p">{</span> <span class="nx">HttpEvent</span><span class="p">,</span> <span class="nx">HttpInterceptor</span><span class="p">,</span> <span class="nx">HttpHandler</span><span class="p">,</span> <span class="nx">HttpRequest</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
       <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./auth/auth.service'</span><span class="p">;</span>
 
-      <span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
-      <span class="k">export</span> <span class="kr">class</span> <span class="nx">MyHttpInterceptor</span> <span class="k">implements</span> <span class="nx">HttpInterceptor</span> <span class="p">{</span>
-      <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">authService</span><span class="err">:</span> <span class="nx">AuthService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+      <span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+      <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyHttpInterceptor</span> <span class="kr">implements</span> <span class="nx">HttpInterceptor</span> <span class="p">{</span>
+      <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">authService</span><span class="p">:</span> <span class="nx">AuthService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 
-      <span class="nx">intercept</span><span class="p">(</span><span class="nx">req</span><span class="err">:</span> <span class="nx">HttpRequest</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">next</span><span class="err">:</span> <span class="nx">HttpHandler</span><span class="p">)</span><span class="err">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">HttpEvent</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+      <span class="nx">intercept</span><span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span> <span class="nx">HttpHandler</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">HttpEvent</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
 
           <span class="c1">// Clone the request to add the new header.</span>
-          <span class="kd">const</span> <span class="nx">authReq</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">clone</span><span class="p">({</span> <span class="na">headers</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">,</span> <span class="s1">'Bearer '</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">getToken</span><span class="p">())});</span>
+          <span class="kd">const</span> <span class="nx">authReq</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">clone</span><span class="p">({</span> <span class="na">headers</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">,</span> <span class="s1">'Bearer '</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">getToken</span><span class="p">())});</span>
 
           <span class="c1">// send the newly created request</span>
           <span class="k">return</span> <span class="nx">next</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="nx">authReq</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span>
@@ -352,7 +352,7 @@
               <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
               <span class="c1">// return the error to the method that called it</span>
               <span class="k">return</span> <span class="nx">observableThrowError</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-          <span class="p">}))</span> <span class="k">as</span> <span class="kr">any</span><span class="p">;</span>
+          <span class="p">}))</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
           <span class="p">}</span>
       <span class="p">}</span>
       </code></pre></figure>
@@ -361,7 +361,7 @@
 
       
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">  
-        <span class="nx">providers</span><span class="err">:</span> <span class="p">[</span><span class="nx">AuthService</span><span class="p">,</span>
+        <span class="nx">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">AuthService</span><span class="p">,</span>
         <span class="p">{</span>
         <span class="na">provide</span><span class="p">:</span> <span class="nx">HTTP_INTERCEPTORS</span><span class="p">,</span>
         <span class="na">useClass</span><span class="p">:</span> <span class="nx">MyHttpInterceptor</span><span class="p">,</span>

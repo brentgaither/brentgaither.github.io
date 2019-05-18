@@ -66,8 +66,8 @@ for alignment style and direction. This does not however take into account all o
   
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">readInFile</span><span class="p">(</span><span class="n">infile</span><span class="p">):</span> \<span class="n">n</span>
     <span class="n">sequence</span> <span class="o">=</span> <span class="s">""</span> 
-    <span class="n">infile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c"># bypass &gt; header line</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+    <span class="n">infile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># bypass &gt; header line
+</span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
         <span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span> <span class="o">+</span> <span class="n">line</span>
         <span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -85,8 +85,8 @@ for alignment style and direction. This does not however take into account all o
     <span class="n">counterComp</span> <span class="o">=</span> <span class="mi">0</span> 
 
     <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)):</span>
-        <span class="c">#find matching nucleotides and add total </span>
-        <span class="k">if</span><span class="p">(</span><span class="n">seq1</span><span class="p">[</span><span class="n">iterator</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">]):</span>
+        <span class="c1">#find matching nucleotides and add total 
+</span>        <span class="k">if</span><span class="p">(</span><span class="n">seq1</span><span class="p">[</span><span class="n">iterator</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">]):</span>
              <span class="n">counterComp</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">if</span><span class="p">(</span><span class="n">counterComp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
         <span class="k">print</span> <span class="p">(</span><span class="s">"no mismatches found - sequences are identical"</span><span class="p">)</span>
@@ -113,16 +113,16 @@ for alignment style and direction. This does not however take into account all o
     <span class="n">difference</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
     <span class="n">shortSeq</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
 
-    <span class="c">#create spaces for deletion</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">difference</span><span class="p">):</span>
+    <span class="c1">#create spaces for deletion
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">difference</span><span class="p">):</span>
         <span class="n">deletion</span> <span class="o">=</span> <span class="n">deletion</span> <span class="o">+</span> <span class="s">'-'</span>   
 
-    <span class="c">#iterate through sequence moving deletion down each nucleotide</span>
-    <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">#resets counter to 0</span>
-        <span class="n">newSeq2</span> <span class="o">=</span> <span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">iterator</span><span class="p">]</span> <span class="o">+</span> <span class="n">deletion</span> <span class="o">+</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">:</span><span class="n">shortSeq</span><span class="p">]</span> 
-        <span class="c">#count number of matching nucleotides put in list</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="c1">#iterate through sequence moving deletion down each nucleotide
+</span>    <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#resets counter to 0
+</span>        <span class="n">newSeq2</span> <span class="o">=</span> <span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">iterator</span><span class="p">]</span> <span class="o">+</span> <span class="n">deletion</span> <span class="o">+</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">:</span><span class="n">shortSeq</span><span class="p">]</span> 
+        <span class="c1">#count number of matching nucleotides put in list
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">newSeq2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
                 <span class="n">counter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span><span class="o">+</span> <span class="mi">1</span>
         <span class="n">bestFit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">counter</span><span class="p">))</span>

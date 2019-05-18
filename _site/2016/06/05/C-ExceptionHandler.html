@@ -88,8 +88,8 @@
             <span class="p">{</span>
                 <span class="n">innerException</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">InnerException</span><span class="p">.</span><span class="n">Message</span><span class="p">;</span>
             <span class="p">}</span>
-            <span class="kt">var</span> <span class="n">errorId</span> <span class="p">=</span> <span class="n">ErrorLog</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span> <span class="c1">//We should log the errors to a file or a db.
-</span>            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"ErrorMessage"</span><span class="p">,</span> <span class="s">"Error"</span><span class="p">,</span>
+            <span class="kt">var</span> <span class="n">errorId</span> <span class="p">=</span> <span class="n">ErrorLog</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span> <span class="c1">//We should log the errors to a file or a db.</span>
+            <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"ErrorMessage"</span><span class="p">,</span> <span class="s">"Error"</span><span class="p">,</span>
             <span class="k">new</span> <span class="p">{</span> <span class="n">ErrorCode</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">HResult</span><span class="p">,</span> <span class="n">ErrorId</span> <span class="p">=</span> <span class="n">errorId</span><span class="p">});</span>
             <span class="k">base</span><span class="p">.</span><span class="nf">OnException</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
         <span class="p">}</span>
