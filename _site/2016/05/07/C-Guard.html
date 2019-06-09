@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-  
+
 <head>
 
   <meta charset="utf-8">
@@ -11,96 +9,92 @@
   <meta name="description" content="I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the ta...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <link rel="canonical" href="http://localhost:4000/2016/05/07/C-Guard.html">
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://localhost:4000/feed.xml">
 </head>
 
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav nav-tabs navbar-left">
-        <li><a href="/">Brent Gaither</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/PokemonGo">PokemonGo</a></li>
-    </ul>
-  </div>
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="flex-sm-fill text-sm-center nav-link" href="/">Brent Gaither</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/about">About</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/PokemonGo">PokemonGo</a>
 </nav>
 
-  <body>
-  <div class="post-content">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<body>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-8">
+    <header class="post-header">
+  
+  <span class="badge badge-success">C#</span>
+  
+  <h1 class="post-title" itemprop="name headline">C# Guard</h1>
+  <p class="post-meta">
+    <time datetime="2016-05-07T00:00:00-06:00" itemprop="datePublished">May 7, 2016
+    </time>
+    
+  </p>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <title>Brentgaither.GitHub.io by brentgaither</title>
+</header>
 
-  <header class="post-header col-md-offset-1 col-lg-offset-1">
-    <h1 class="post-title" itemprop="name headline">C# Guard</h1>
-    <p class="post-meta"><time datetime="2016-05-07T00:00:00-06:00" itemprop="datePublished">May 7, 2016</time></p>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </header>
-
-  <div class="post-content" itemprop="articleBody">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-          <p>I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the tactics I have learned to deal with issues that took more some searching.</p>
+<div class="post-content" itemprop="articleBody">
+  <p>I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the tactics I have learned to deal with issues that took more some searching.</p>
 
 <p>Null references have been called a billion dollar mistake. I learned a pretty slick way to deal with them that is easy to use and consistent. A guard class can be used to ensure the object you are passing into a method does not break functionality.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public static class Guard
-{
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Guard</span>
+<span class="p">{</span>
 
-  public static void NotNull&lt;T&gt;(T obj, 
-      string message = "Paramter cannot be null")
-  {
-      if (!object.ReferenceEquals(null, data)) return;
+  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">NotNull</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">obj</span><span class="p">,</span> 
+      <span class="kt">string</span> <span class="n">message</span> <span class="p">=</span> <span class="s">"Paramter cannot be null"</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(!</span><span class="kt">object</span><span class="p">.</span><span class="nf">ReferenceEquals</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
 
-      throw new ArgumentNullException(null, message);
-  }
-  public static void NotNullOrEmpty(string checkString, 
-      string message = "String parameter can not be null or empty")
-  {
-      if (string.IsNullOrEmpty(checkString))
-      {
-          throw new ArgumentException(message);
-      }
-      return;
-  }
-}
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">NotNullOrEmpty</span><span class="p">(</span><span class="kt">string</span> <span class="n">checkString</span><span class="p">,</span> 
+      <span class="kt">string</span> <span class="n">message</span> <span class="p">=</span> <span class="s">"String parameter can not be null or empty"</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">checkString</span><span class="p">))</span>
+      <span class="p">{</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentException</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>This class is can be used to guard against any object that you want to use in a method. This is really great to be able to throw and error easily by just typing…</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Guard
-{
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Guard</span>
+<span class="p">{</span>
 
-  public ActionResult SaveNewOrder(NewOrder order)
-  {
-      Guard.Notnull(order);
+  <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SaveNewOrder</span><span class="p">(</span><span class="n">NewOrder</span> <span class="n">order</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">Guard</span><span class="p">.</span><span class="nf">Notnull</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
 
-      var createOrder = new CreateOrder();
-      createOrder.save(order);
-      return View();
-  }
-}
+      <span class="kt">var</span> <span class="n">createOrder</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">CreateOrder</span><span class="p">();</span>
+      <span class="n">createOrder</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
-      </div>
-    </div>
-  </div>
-</article>
+</div>
 
-      </div>
-    </div>
   </div>
-    <footer>
+  <div class="col"></div>
+</div>
+<footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
 </footer>
 
-  </body>
-</html>
+</body>

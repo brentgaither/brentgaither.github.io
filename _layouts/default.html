@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html>
-  {% include head.html %}
-  {% include header.html %}
-  <body>
-  <div class="post-content">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-        {{ content }}
-      </div>
-    </div>
+{% include head.html %}
+{% include header.html %}
+<body>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-8">
+    {{ content }}
   </div>
-    {% include footer.html %}
-  </body>
-</html>
+  <div class="col"></div>
+</div>
+{% include footer.html %}
+</body>

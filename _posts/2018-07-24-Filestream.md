@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Sql Filestream
+tags: [filestream, sql]
 ---
 
 
@@ -22,7 +23,7 @@ To setup a filestream db you need to enable filestream on the server and setup t
  * Hit Apply.
 Now you have file stream enabled lets create a database
 
-```
+```sql
 CREATE DATABASE FileStreamDb
 --You must restart the service once you run this!
 EXEC sp_configure filestream_access_level, 2
@@ -74,7 +75,7 @@ https://blog.tallan.com/2011/08/22/using-sqlfilestream-with-c-to-access-sql-serv
 The main points you need to know are filestreams must use a transaction to stream the data and there is some manual configuration to get the sql filestream to work with the C# streaming. 
 
 If you have files that you want to convert from a fileshare to use a filestream you can use the follow script:
-```
+```sql
 begin tran
   CREATE TABLE #tmpFolders(myFolderName VARCHAR(max));
    -- Where are your files that you want to convert?

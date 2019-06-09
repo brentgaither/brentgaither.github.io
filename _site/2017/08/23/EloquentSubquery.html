@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-  
+
 <head>
 
   <meta charset="utf-8">
@@ -11,71 +9,69 @@
   <meta name="description" content="Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue w...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <link rel="canonical" href="http://localhost:4000/2017/08/23/EloquentSubquery.html">
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://localhost:4000/feed.xml">
 </head>
 
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav nav-tabs navbar-left">
-        <li><a href="/">Brent Gaither</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/PokemonGo">PokemonGo</a></li>
-    </ul>
-  </div>
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="flex-sm-fill text-sm-center nav-link" href="/">Brent Gaither</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/about">About</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/PokemonGo">PokemonGo</a>
 </nav>
 
-  <body>
-  <div class="post-content">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<body>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-8">
+    <header class="post-header">
+  
+  <span class="badge badge-success">laravel</span>
+  
+  <span class="badge badge-success">sql</span>
+  
+  <h1 class="post-title" itemprop="name headline">Laravel - Eloquent subqueries</h1>
+  <p class="post-meta">
+    <time datetime="2017-08-23T00:00:00-06:00" itemprop="datePublished">Aug 23, 2017
+    </time>
+    
+  </p>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <title>Brentgaither.GitHub.io by brentgaither</title>
+</header>
 
-  <header class="post-header col-md-offset-1 col-lg-offset-1">
-    <h1 class="post-title" itemprop="name headline">Laravel - Eloquent subqueries</h1>
-    <p class="post-meta"><time datetime="2017-08-23T00:00:00-06:00" itemprop="datePublished">Aug 23, 2017</time></p>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </header>
-
-  <div class="post-content" itemprop="articleBody">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-          <p>Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB::table('users as u')
-     -&gt;select(DB::raw('u.id, u.name'))
-     -&gt;join('some_interesting_table as s', 's.user_id', 'u.id')
-     -&gt;leftJoin('another_intersting_table as a', function($join)
-            {
-                $join-&gt;on('a.user_id', '=', 'u.id');
-                $join-&gt;on('a.id', '=',
-                 DB::raw("(select max(id)
+<div class="post-content" itemprop="articleBody">
+  <p>Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">'users as u'</span><span class="p">)</span>
+     <span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="nx">DB</span><span class="o">::</span><span class="na">raw</span><span class="p">(</span><span class="s1">'u.id, u.name'</span><span class="p">))</span>
+     <span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">'some_interesting_table as s'</span><span class="p">,</span> <span class="s1">'s.user_id'</span><span class="p">,</span> <span class="s1">'u.id'</span><span class="p">)</span>
+     <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span><span class="s1">'another_intersting_table as a'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$join</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nv">$join</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'a.user_id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="s1">'u.id'</span><span class="p">);</span>
+                <span class="nv">$join</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'a.id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span>
+                 <span class="nx">DB</span><span class="o">::</span><span class="na">raw</span><span class="p">(</span><span class="s2">"(select max(id)
                  from another_intersting_table a2
-                  where u.id = a2.user_id)"));
-            })
-    -&gt;where('u.name', 'like', "%" . $name . "%")
-    -&gt;orderby('u.name');
+                  where u.id = a2.user_id)"</span><span class="p">));</span>
+            <span class="p">})</span>
+    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">'u.name'</span><span class="p">,</span> <span class="s1">'like'</span><span class="p">,</span> <span class="s2">"%"</span> <span class="o">.</span> <span class="nv">$name</span> <span class="o">.</span> <span class="s2">"%"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">orderby</span><span class="p">(</span><span class="s1">'u.name'</span><span class="p">);</span>
 </code></pre></div></div>
 
 
-      </div>
-    </div>
-  </div>
-</article>
+</div>
 
-      </div>
-    </div>
   </div>
-    <footer>
+  <div class="col"></div>
+</div>
+<footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
 </footer>
 
-  </body>
-</html>
+</body>

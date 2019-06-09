@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Aligning DNA
+categories: [bioinformatics]
 ---
 
 This first program is here to show how easy it is to start learning about bioinformatics using python. This program
@@ -10,7 +11,7 @@ I started with a simple method to read in a <a href ="https://en.wikipedia.org/w
 
 
 
-```
+```python
 def readInFile(infile): \n
     sequence = "" 
     infile.readline()  # bypass > header line
@@ -25,7 +26,7 @@ def readInFile(infile): \n
 
   This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works.
 
-```
+```python
 def comparison(seq1,seq2):
         
     counterComp = 0 
@@ -45,7 +46,7 @@ def comparison(seq1,seq2):
 
    We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.
 
-```
+```python
 def comparisonUnequal(seq1,seq2):
     difference = 0
     deletion =''
@@ -83,7 +84,7 @@ def comparisonUnequal(seq1,seq2):
 ```
 I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
 
-```
+```python
   def switchSequences(seq1,seq2):
       temp = seq1
       seq1 = seq2

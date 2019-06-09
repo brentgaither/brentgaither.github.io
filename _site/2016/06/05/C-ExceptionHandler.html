@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-  
+
 <head>
 
   <meta charset="utf-8">
@@ -11,132 +9,128 @@
   <meta name="description" content="Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The “...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <link rel="canonical" href="http://localhost:4000/2016/06/05/C-ExceptionHandler.html">
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://localhost:4000/feed.xml">
 </head>
 
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav nav-tabs navbar-left">
-        <li><a href="/">Brent Gaither</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/PokemonGo">PokemonGo</a></li>
-    </ul>
-  </div>
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="flex-sm-fill text-sm-center nav-link" href="/">Brent Gaither</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/about">About</a>
+  <a class="flex-sm-fill text-sm-center nav-link" href="/PokemonGo">PokemonGo</a>
 </nav>
 
-  <body>
-  <div class="post-content">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<body>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-8">
+    <header class="post-header">
+  
+  <span class="badge badge-success">C#</span>
+  
+  <h1 class="post-title" itemprop="name headline">C# Exception handling</h1>
+  <p class="post-meta">
+    <time datetime="2016-06-05T00:00:00-06:00" itemprop="datePublished">Jun 5, 2016
+    </time>
+    
+  </p>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <title>Brentgaither.GitHub.io by brentgaither</title>
+</header>
 
-  <header class="post-header col-md-offset-1 col-lg-offset-1">
-    <h1 class="post-title" itemprop="name headline">C# Exception handling</h1>
-    <p class="post-meta"><time datetime="2016-06-05T00:00:00-06:00" itemprop="datePublished">Jun 5, 2016</time></p>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </header>
-
-  <div class="post-content" itemprop="articleBody">
-    <div class="col-lg-12">
-      <div class="col-lg-7 col-lg-offset-2">
-          <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The “yellow screen” can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
+<div class="post-content" itemprop="articleBody">
+  <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The “yellow screen” can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
 
 <p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has. We should make sure that went do not give away too much information to the end user when we show errors. If you want we could change the logging for a special user or role.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class CustomController : Controller
-{
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CustomController</span> <span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
 
-    protected override void OnException(ExceptionContext filterContext)
-    {
-        Exception ex = filterContext.Exception;
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnException</span><span class="p">(</span><span class="n">ExceptionContext</span> <span class="n">filterContext</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Exception</span> <span class="n">ex</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">Exception</span><span class="p">;</span>
 
-        filterContext.ExceptionHandled = true;
+        <span class="n">filterContext</span><span class="p">.</span><span class="n">ExceptionHandled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
 
-        string innerException;
-        if ((ex.InnerException) == null)
-        {
-            innerException = "No inner exception";
-        }
-        else
-        {
-            innerException = ex.InnerException.Message;
-        }
-        var errorId = ErrorLog.Log(ex); //We should log the errors to a file or a db.
-        filterContext.Result = RedirectToAction("ErrorMessage", "Error",
-        new { ErrorCode = ex.HResult, ErrorId = errorId});
-        base.OnException(filterContext);
-    }
-}
+        <span class="kt">string</span> <span class="n">innerException</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">ex</span><span class="p">.</span><span class="n">InnerException</span><span class="p">)</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">innerException</span> <span class="p">=</span> <span class="s">"No inner exception"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">innerException</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">InnerException</span><span class="p">.</span><span class="n">Message</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">var</span> <span class="n">errorId</span> <span class="p">=</span> <span class="n">ErrorLog</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span> <span class="c1">//We should log the errors to a file or a db.</span>
+        <span class="n">filterContext</span><span class="p">.</span><span class="n">Result</span> <span class="p">=</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"ErrorMessage"</span><span class="p">,</span> <span class="s">"Error"</span><span class="p">,</span>
+        <span class="k">new</span> <span class="p">{</span> <span class="n">ErrorCode</span> <span class="p">=</span> <span class="n">ex</span><span class="p">.</span><span class="n">HResult</span><span class="p">,</span> <span class="n">ErrorId</span> <span class="p">=</span> <span class="n">errorId</span><span class="p">});</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">OnException</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>The Error viewmodel…</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    public class ErrorViewModel
-    {
-        public int ErrorCode { get; set; }
-        public int ErrorId { get; set; }
-    }
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">class</span> <span class="nc">ErrorViewModel</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ErrorCode</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">ErrorId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
 </code></pre></div></div>
 
 <p>The Error controller…</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class ErrorController : CustomController
-{
-    [HttpGet]
-    public ActionResult ErrorMessage(ErrorViewModel model)
-    {
-        return View(model);
-    }
-}
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ErrorController</span> <span class="p">:</span> <span class="n">CustomController</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">ErrorMessage</span><span class="p">(</span><span class="n">ErrorViewModel</span> <span class="n">model</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>The Error view…</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@model Your.NameSpace.ErrorViewModel
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@model Your.NameSpace.ErrorViewModel
 
-&lt;h1&gt;Error.&lt;/h1&gt;
+<span class="nt">&lt;h1&gt;</span>Error.<span class="nt">&lt;/h1&gt;</span>
 @{
 if (@Model != null)
 {
-    &lt;h3&gt;Oh no! Something went wrong. Please report this error to the site admin : @Model.ErrorCode&lt;/h3&gt;
-    &lt;h4&gt;ErrorId : @Model.ErrorId&lt;/h4&gt;
+    <span class="nt">&lt;h3&gt;</span>Oh no! Something went wrong. Please report this error to the site admin : @Model.ErrorCode<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;h4&gt;</span>ErrorId : @Model.ErrorId<span class="nt">&lt;/h4&gt;</span>
 }
 else
 {
-    &lt;h3&gt;Excpetion was null&lt;/h3&gt;
+    <span class="nt">&lt;h3&gt;</span>Excpetion was null<span class="nt">&lt;/h3&gt;</span>
 }
 }
 </code></pre></div></div>
 
 <p>Using the customController…</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class HomeController : CustomController
-{
-    public ActionResult Index()
-    {
-        return View();
-    }
-}
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">HomeController</span> <span class="p">:</span> <span class="n">CustomController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
-      </div>
-    </div>
-  </div>
-</article>
+</div>
 
-      </div>
-    </div>
   </div>
-    <footer>
+  <div class="col"></div>
+</div>
+<footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
 </footer>
 
-  </body>
-</html>
+</body>

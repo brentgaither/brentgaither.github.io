@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Duplicate Records in Rails
+tags: [rails, sql]
 ---
 
   Rails provides so many nice features that help you manage your data. One of those features is validates_uniqueness_of
@@ -25,7 +26,7 @@ title:  Duplicate Records in Rails
   table and delegate your pets uniqueness constraints to a household pet table. For this example, we are going to allow a little
   denormalization. So first we must add a migration that adds the household_id to the pet.
 
-  ```
+  ```ruby
   class AddUniquenessToPet < ActiveRecord::Migration
     def change
       add_column :pets, :household_id, :integer
@@ -45,7 +46,7 @@ title:  Duplicate Records in Rails
   the pet is unique.
 
   Fill in the pets household id with the following script that will go through and set the needed data on the pet table.
-  ```
+  ```ruby
    def self.run!
       Pet.
         where("household_id IS NULL").
@@ -59,7 +60,7 @@ title:  Duplicate Records in Rails
   have more than one pet with the same name. This enables us to identify each of the pets in a house that has the same name.
   After we get all of the pets within the same house with the same name we iterate over them and add a revision to each of
   the pets. So now we can tell if this was Lassy 0 or Lassy 1.
-  ```
+  ```ruby
           result = ActiveRecord::Base.connection.execute(<<-SQL)
             SELECT household_id, name, revision
             FROM `pets`
@@ -78,7 +79,7 @@ title:  Duplicate Records in Rails
 
   Once this script has been run we have unique rows and we can finally a uniqueness constraint. This is another rails migration
   that can be run once we have deployed the application code and the backfillers.
-  ```
+  ```ruby
   class PetUniqueness < ActiveRecord::Migration
     def change
       add_index :pets, [:household_id, :name, :revision], :unique => true

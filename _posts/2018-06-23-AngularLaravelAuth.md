@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Angular and Laravel Authentication
+tags: [authentication, laravel]
 ---
 
 I have been working on an Angular 6 application and i was struggling to get
@@ -45,7 +46,7 @@ the passport components click create new client and add your app name as well as
  Once you have the client created we can add a service to detect if the user is logged in.
 Create a new service named auth that looks like this
 
-```
+```typescript
 import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AUTH_CONFIG } from './auth-config';
@@ -128,7 +129,7 @@ This service will take care of the sending the user to the OAuth server
 checking their token and parsing the token from the server. We need a few more
 files to save all of the configurations for the authorization server.
 
-```
+```typescript
 export class AuthResult {
   access_token: string;
   expires_in: number;
@@ -136,7 +137,7 @@ export class AuthResult {
 }
 ```
 
-```
+```typescript
 interface AuthConfig {
   CLIENT_ID: string;
   REDIRECT: string;
@@ -159,7 +160,7 @@ export const AUTH_CONFIG: AuthConfig = {
 from the auth server. To do this create a new component (ng g c callback). It is a very simple component that will just
 send some data to the auth service and maybe run a spinner while it waits. 
 
-```
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -186,7 +187,7 @@ export class CallbackComponent implements OnInit {
 # Home component
  Lets create a simple component to check and see if the user is logged in (ng g c home) 
  
-```
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
@@ -214,7 +215,7 @@ export class HomeComponent {
 
  Now add some html in the home component
  
-``` 
+``` html
       <button
       *ngIf="this.authenticated()"
       mat-menu-item
@@ -234,7 +235,7 @@ export class HomeComponent {
 # Routing
  We will also need to add RouterModule to the app module so the app can use Angular's routing. Create a simple routing module and import it into your app module.
 
-```  
+```typescript
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -260,7 +261,7 @@ export class AppRoutingModule {}
  Click the sign in button and it should all work! Oh no... "unsupported_grant_type", looks like something is setup
 wrong for the authorization server. If we go to Laravel's documentation we can see that for implicit flow to work we need to add  Passport::enableImplicitGrant(); to AuthServiceProvider (right after where we registered the passport routes) Now everything should work and we will have an authorization token in local storage. Theres just one more thing. When we send requests to the server from a component we will have to go to the authorization service and add the token in the header. Instead of doing that on each request we can add an http interceptor to our project and let that take care of sending the token on each request. 
 
-```
+```typescript
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 
 import {catchError} from 'rxjs/operators';
@@ -291,11 +292,11 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
 ```
  Once you add the class MyHttpInterceptor you need to add it to your providers in app module and it will send the header Authorization with Bearer and an access token on each request! 
 
-`` 
+```typescript
 providers: [AuthService,
 {
 provide: HTTP_INTERCEPTORS,
 useClass: MyHttpInterceptor,
 multi: true
 }],
-``
+```

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: C# Exception handling 
+tags: [C#]
 ---
 
 
@@ -9,7 +10,7 @@ Errors happen in code so we need to deal with them in a way that will not confus
 
 Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has. We should make sure that went do not give away too much information to the end user when we show errors. If you want we could change the logging for a special user or role.
 
-```
+```csharp
 public class CustomController : Controller
 {
 
@@ -38,7 +39,7 @@ public class CustomController : Controller
 
 The Error viewmodel...
 
-```
+```csharp
     public class ErrorViewModel
     {
         public int ErrorCode { get; set; }
@@ -48,7 +49,7 @@ The Error viewmodel...
 
 The Error controller...
 
-```
+```csharp
 public class ErrorController : CustomController
 {
     [HttpGet]
@@ -61,7 +62,7 @@ public class ErrorController : CustomController
 
 
 The Error view...
-```
+```html
 @model Your.NameSpace.ErrorViewModel
 
 <h1>Error.</h1>
@@ -79,7 +80,7 @@ else
 ```
 
 Using the customController...
-```
+```csharp
 public class HomeController : CustomController
 {
     public ActionResult Index()
