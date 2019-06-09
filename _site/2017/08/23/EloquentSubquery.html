@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Laravel - Eloquent subqueries</title>
-  <meta name="description" content="                      Brentgaither.GitHub.io by brentgaither  ">
+  <meta name="description" content="Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue w...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,7 +30,9 @@
 </nav>
 
   <body>
-    <div class="page-content">
+  <div class="post-content">
+    <div class="col-lg-12">
+      <div class="col-lg-7 col-lg-offset-2">
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header col-md-offset-1 col-lg-offset-1">
@@ -44,53 +46,32 @@
 
   <div class="post-content" itemprop="articleBody">
     <div class="col-lg-12">
-<div class="col-lg-7 col-lg-offset-2">
-    <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <link href="https://fonts.googleapis.com/css?family=Chivo:900" rel="stylesheet" type="text/css" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Brentgaither.GitHub.io by brentgaither</title>
-  </head>
+      <div class="col-lg-7 col-lg-offset-2">
+          <p>Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB::table('users as u')
+     -&gt;select(DB::raw('u.id, u.name'))
+     -&gt;join('some_interesting_table as s', 's.user_id', 'u.id')
+     -&gt;leftJoin('another_intersting_table as a', function($join)
+            {
+                $join-&gt;on('a.user_id', '=', 'u.id');
+                $join-&gt;on('a.id', '=',
+                 DB::raw("(select max(id)
+                 from another_intersting_table a2
+                  where u.id = a2.user_id)"));
+            })
+    -&gt;where('u.name', 'like', "%" . $name . "%")
+    -&gt;orderby('u.name');
+</code></pre></div></div>
 
-  <body>
-    <div id="container">
-      <div class="inner">
-        <hr />
-        <section id="main_content">
-        <p>Laravel uses eloquent for its database interactions. It has some great features and make queries super easy for the most part. Recently I ran into an issue with creating a subquery in one of my eloquent queries. I was trying to do a common query known as a greatest-n-per-group. Basically you want to get the most recent or largest of a group. To do this it is best to add a subquery on one of the joins to get the largest of that group. There is not functionality built in to do this in eloquent so you have to be a little clever. I was not able to find a solution that i liked to achieve this so i came up with something on my own. </p>
-        
-<figure class="highlight"><pre><code class="language-php" data-lang="php">                <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">'users as u'</span><span class="p">)</span>
-                     <span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="nx">DB</span><span class="o">::</span><span class="na">raw</span><span class="p">(</span><span class="s1">'u.id, u.name'</span><span class="p">))</span>
-                     <span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">'some_interesting_table as s'</span><span class="p">,</span> <span class="s1">'s.user_id'</span><span class="p">,</span> <span class="s1">'u.id'</span><span class="p">)</span>
-                     <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span><span class="s1">'another_intersting_table as a'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$join</span><span class="p">)</span>
-                            <span class="p">{</span>
-                                <span class="nv">$join</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'a.user_id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="s1">'u.id'</span><span class="p">);</span>
-                                <span class="nv">$join</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'a.id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span>
-                                 <span class="nx">DB</span><span class="o">::</span><span class="na">raw</span><span class="p">(</span><span class="s2">"(select max(id)
-                                 from another_intersting_table a2
-                                  where u.id = a2.user_id)"</span><span class="p">));</span>
-                            <span class="p">})</span>
-                    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">'u.name'</span><span class="p">,</span> <span class="s1">'like'</span><span class="p">,</span> <span class="s2">"%"</span> <span class="o">.</span> <span class="nv">$name</span> <span class="o">.</span> <span class="s2">"%"</span><span class="p">)</span>
-                    <span class="o">-&gt;</span><span class="na">orderby</span><span class="p">(</span><span class="s1">'u.name'</span><span class="p">);</span>
-            </code></pre></figure>
-
-        </section>
 
       </div>
     </div>
-  </body>
-</html>
-
   </div>
-</div>
-</div>
 </article>
 
+      </div>
     </div>
+  </div>
     <footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 

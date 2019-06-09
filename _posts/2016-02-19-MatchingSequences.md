@@ -2,27 +2,15 @@
 layout: post
 title: Aligning DNA
 ---
- 
 
-<html>
-
-
-<body>
-  <div id="container">
-    <div class="inner">
-      <hr>  
-
-<section id="main_content">
-          
-
-<p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
+This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
-for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.</p>
-<p>I started with a simple method to read in a <a href ="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard. </p>
+for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.
+I started with a simple method to read in a <a href ="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard.
 
 
 
-  {% highlight python %}
+```
 def readInFile(infile): \n
     sequence = "" 
     infile.readline()  # bypass > header line
@@ -32,12 +20,12 @@ def readInFile(infile): \n
         sequence = sequence.upper()
     infile.close()
     return sequence
-    {% endhighlight %}
+```
 
 
-  <p>This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works. </p>
+  This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works.
 
-    {% highlight python %}
+```
 def comparison(seq1,seq2):
         
     counterComp = 0 
@@ -53,11 +41,11 @@ def comparison(seq1,seq2):
         print(seq2)
         print("Sequences are identical length with " + str(counterComp) 
             + " matches out of " + str(len(seq1)) + " nucleotides")
-  {% endhighlight %}
+```
 
-  <p> We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.</p>
+   We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.
 
-    {% highlight python %}
+```
 def comparisonUnequal(seq1,seq2):
     difference = 0
     deletion =''
@@ -92,22 +80,13 @@ def comparisonUnequal(seq1,seq2):
         " nucleotide(s) occurred at nucleotide(s) " 
         + str(bestFit.index(max(bestFit))+1) + "-"+ 
         str(bestFit.index(max(bestFit))+difference))
-  {% endhighlight %}
+```
+I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
 
-  <p> I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
-  </p>
-
-    {% highlight python %}
+```
   def switchSequences(seq1,seq2):
       temp = seq1
       seq1 = seq2
       seq2 = temp
       return seq1, seq2
-  {% endhighlight %}
-
-  </section>
-  </div>
-</div>
-
-    </body>
-</html>
+```

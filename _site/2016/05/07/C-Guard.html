@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>C# Guard</title>
-  <meta name="description" content="">
+  <meta name="description" content="I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the ta...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,7 +30,9 @@
 </nav>
 
   <body>
-    <div class="page-content">
+  <div class="post-content">
+    <div class="col-lg-12">
+      <div class="col-lg-7 col-lg-offset-2">
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header col-md-offset-1 col-lg-offset-1">
@@ -44,77 +46,57 @@
 
   <div class="post-content" itemprop="articleBody">
     <div class="col-lg-12">
-<div class="col-lg-7 col-lg-offset-2">
-    <html>
-
-
-<body>
-<div id="container">
-<div class="inner">
-
-<hr />
-
-<section id="main_content">
-
-<p>I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the tactics I have learned to deal with issues that took more some searching.</p>
+      <div class="col-lg-7 col-lg-offset-2">
+          <p>I have started working more and more in C# creating MVC web applications. I have learned a ton about software in this time and wanted to share some of the tactics I have learned to deal with issues that took more some searching.</p>
 
 <p>Null references have been called a billion dollar mistake. I learned a pretty slick way to deal with them that is easy to use and consistent. A guard class can be used to ensure the object you are passing into a method does not break functionality.</p>
 
-  
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp">    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Guard</span>
-    <span class="p">{</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public static class Guard
+{
 
-        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">NotNull</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">obj</span><span class="p">,</span> 
-            <span class="kt">string</span> <span class="n">message</span> <span class="p">=</span> <span class="s">"Paramter cannot be null"</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(!</span><span class="kt">object</span><span class="p">.</span><span class="nf">ReferenceEquals</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
+  public static void NotNull&lt;T&gt;(T obj, 
+      string message = "Paramter cannot be null")
+  {
+      if (!object.ReferenceEquals(null, data)) return;
 
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">NotNullOrEmpty</span><span class="p">(</span><span class="kt">string</span> <span class="n">checkString</span><span class="p">,</span> 
-            <span class="kt">string</span> <span class="n">message</span> <span class="p">=</span> <span class="s">"String parameter can not be null or empty"</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">checkString</span><span class="p">))</span>
-            <span class="p">{</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentException</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    </code></pre></figure>
+      throw new ArgumentNullException(null, message);
+  }
+  public static void NotNullOrEmpty(string checkString, 
+      string message = "String parameter can not be null or empty")
+  {
+      if (string.IsNullOrEmpty(checkString))
+      {
+          throw new ArgumentException(message);
+      }
+      return;
+  }
+}
+</code></pre></div></div>
 
+<p>This class is can be used to guard against any object that you want to use in a method. This is really great to be able to throw and error easily by just typing…</p>
 
-  <p> This class is can be used to guard against any object that you want to use in a method. This is really great to be able to throw and error easily by just typing...  </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Guard
+{
 
-    
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp">    <span class="k">public</span> <span class="k">class</span> <span class="nc">Guard</span>
-    <span class="p">{</span>
+  public ActionResult SaveNewOrder(NewOrder order)
+  {
+      Guard.Notnull(order);
 
-        <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SaveNewOrder</span><span class="p">(</span><span class="n">NewOrder</span> <span class="n">order</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">Guard</span><span class="p">.</span><span class="nf">Notnull</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
-
-            <span class="kt">var</span> <span class="n">createOrder</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">CreateOrder</span><span class="p">();</span>
-            <span class="n">createOrder</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
-            <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    </code></pre></figure>
-
-
-        </section>
+      var createOrder = new CreateOrder();
+      createOrder.save(order);
+      return View();
+  }
+}
+</code></pre></div></div>
 
       </div>
     </div>
-  </body>
-</html>
-
   </div>
-</div>
-</div>
 </article>
 
+      </div>
     </div>
+  </div>
     <footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 

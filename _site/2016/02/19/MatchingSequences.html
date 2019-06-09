@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Aligning DNA</title>
-  <meta name="description" content="">
+  <meta name="description" content="This first program is here to show how easy it is to start learning about bioinformatics using python. This programquickly anaylzes two strings or DNA strand...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,7 +30,9 @@
 </nav>
 
   <body>
-    <div class="page-content">
+  <div class="post-content">
+    <div class="col-lg-12">
+      <div class="col-lg-7 col-lg-offset-2">
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header col-md-offset-1 col-lg-offset-1">
@@ -44,125 +46,96 @@
 
   <div class="post-content" itemprop="articleBody">
     <div class="col-lg-12">
-<div class="col-lg-7 col-lg-offset-2">
-    <html>
-
-
-<body>
-  <div id="container">
-    <div class="inner">
-      <hr />  
-
-<section id="main_content">
-          
-
-<p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
+      <div class="col-lg-7 col-lg-offset-2">
+          <p>This first program is here to show how easy it is to start learning about bioinformatics using python. This program
 quickly anaylzes two strings or DNA strands to see how similar they are. This even includes a few additional features
-for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.</p>
-<p>I started with a simple method to read in a <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard. </p>
+for alignment style and direction. This does not however take into account all of the factors that a real DNA strand will encounter.
+I started with a simple method to read in a <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file. This is used in most of my programs since FASTA files are a standard.</p>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def readInFile(infile): \n
+    sequence = "" 
+    infile.readline()  # bypass &gt; header line
+    for line in infile:
+        line = line.replace('\n', '')
+        sequence = sequence + line
+        sequence = sequence.upper()
+    infile.close()
+    return sequence
+</code></pre></div></div>
 
+<p>This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works.</p>
 
-  
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">readInFile</span><span class="p">(</span><span class="n">infile</span><span class="p">):</span> \<span class="n">n</span>
-    <span class="n">sequence</span> <span class="o">=</span> <span class="s">""</span> 
-    <span class="n">infile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># bypass &gt; header line
-</span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
-        <span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span> <span class="o">+</span> <span class="n">line</span>
-        <span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-    <span class="n">infile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">sequence</span>
-    </code></pre></figure>
-
-
-
-  <p>This next method comapres two sequences with the same length. This is a rather crude way to compare DNA sequences but to start to learn how to use python in biology this works. </p>
-
-    
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparison</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def comparison(seq1,seq2):
         
-    <span class="n">counterComp</span> <span class="o">=</span> <span class="mi">0</span> 
+    counterComp = 0 
 
-    <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)):</span>
-        <span class="c1">#find matching nucleotides and add total 
-</span>        <span class="k">if</span><span class="p">(</span><span class="n">seq1</span><span class="p">[</span><span class="n">iterator</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">]):</span>
-             <span class="n">counterComp</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">counterComp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s">"no mismatches found - sequences are identical"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>        
-        <span class="k">print</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"Sequences are identical length with "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counterComp</span><span class="p">)</span> 
-            <span class="o">+</span> <span class="s">" matches out of "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">))</span> <span class="o">+</span> <span class="s">" nucleotides"</span><span class="p">)</span>
-  </code></pre></figure>
+    for iterator in range(0,len(seq1)):
+        #find matching nucleotides and add total 
+        if(seq1[iterator] == seq2[iterator]):
+             counterComp += 1
+    if(counterComp == 0):
+        print ("no mismatches found - sequences are identical")
+    else:        
+        print(seq1)
+        print(seq2)
+        print("Sequences are identical length with " + str(counterComp) 
+            + " matches out of " + str(len(seq1)) + " nucleotides")
+</code></pre></div></div>
 
+<p>We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.</p>
 
-  <p> We can now input a FASTA file and compare sequences with this method. What happens if we have sequences of different lengths? We can use this method below to try and predict where the sequences might line up.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def comparisonUnequal(seq1,seq2):
+    difference = 0
+    deletion =''
 
-    
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">comparisonUnequal</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
-    <span class="n">difference</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">deletion</span> <span class="o">=</span><span class="s">''</span>
+    bestFit = list('')
+    counter = 0
+    if(len(seq1) &lt; len(seq2)):
+        seq1, seq2 = switchSequences(seq1,seq2)
 
-    <span class="n">bestFit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)):</span>
-        <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span> <span class="o">=</span> <span class="n">switchSequences</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">)</span>
+    difference = len(seq1) - len(seq2)
+    shortSeq = len(seq2)
 
-    <span class="n">difference</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
-    <span class="n">shortSeq</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
+    #create spaces for deletion
+    for i in range(0,difference):
+        deletion = deletion + '-'   
 
-    <span class="c1">#create spaces for deletion
-</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">difference</span><span class="p">):</span>
-        <span class="n">deletion</span> <span class="o">=</span> <span class="n">deletion</span> <span class="o">+</span> <span class="s">'-'</span>   
+    #iterate through sequence moving deletion down each nucleotide
+    for iterator in range(0,shortSeq+1):
+        counter = 0 #resets counter to 0
+        newSeq2 = seq2[0:iterator] + deletion + seq2[iterator:shortSeq] 
+        #count number of matching nucleotides put in list
+        for i in range(0,shortSeq+1):
+            if seq1[i] == newSeq2[i]:
+                counter = int(counter)+ 1
+        bestFit.append(int(counter))
+    print("The best matching sequence is...")
+    print(seq1)
+    print(seq2[0:bestFit.index(max(bestFit))] + deletion + 
+        seq2[bestFit.index(max(bestFit)):shortSeq])
+    print("There are " + str(max(bestFit)) + " matching nucleotides")
+    print("A deletion of " + str(difference) + 
+        " nucleotide(s) occurred at nucleotide(s) " 
+        + str(bestFit.index(max(bestFit))+1) + "-"+ 
+        str(bestFit.index(max(bestFit))+difference))
+</code></pre></div></div>
+<p>I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences.</p>
 
-    <span class="c1">#iterate through sequence moving deletion down each nucleotide
-</span>    <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#resets counter to 0
-</span>        <span class="n">newSeq2</span> <span class="o">=</span> <span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">iterator</span><span class="p">]</span> <span class="o">+</span> <span class="n">deletion</span> <span class="o">+</span> <span class="n">seq2</span><span class="p">[</span><span class="n">iterator</span><span class="p">:</span><span class="n">shortSeq</span><span class="p">]</span> 
-        <span class="c1">#count number of matching nucleotides put in list
-</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">shortSeq</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">newSeq2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="n">counter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span><span class="o">+</span> <span class="mi">1</span>
-        <span class="n">bestFit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">counter</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"The best matching sequence is..."</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))]</span> <span class="o">+</span> <span class="n">deletion</span> <span class="o">+</span> 
-        <span class="n">seq2</span><span class="p">[</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">)):</span><span class="n">shortSeq</span><span class="p">])</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"There are "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))</span> <span class="o">+</span> <span class="s">" matching nucleotides"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"A deletion of "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">difference</span><span class="p">)</span> <span class="o">+</span> 
-        <span class="s">" nucleotide(s) occurred at nucleotide(s) "</span> 
-        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">"-"</span><span class="o">+</span> 
-        <span class="nb">str</span><span class="p">(</span><span class="n">bestFit</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">bestFit</span><span class="p">))</span><span class="o">+</span><span class="n">difference</span><span class="p">))</span>
-  </code></pre></figure>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  def switchSequences(seq1,seq2):
+      temp = seq1
+      seq1 = seq2
+      seq2 = temp
+      return seq1, seq2
+</code></pre></div></div>
 
-
-  <p> I also added in a method to ensure that I knew which DNA strand was longer. This helps me ensure i have a positive number when determining how many nucleotides are missing or inserted between the two sequences. 
-  </p>
-
-    
-<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">switchSequences</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span><span class="n">seq2</span><span class="p">):</span>
-      <span class="n">temp</span> <span class="o">=</span> <span class="n">seq1</span>
-      <span class="n">seq1</span> <span class="o">=</span> <span class="n">seq2</span>
-      <span class="n">seq2</span> <span class="o">=</span> <span class="n">temp</span>
-      <span class="k">return</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span>
-  </code></pre></figure>
-
-
-  </section>
+      </div>
+    </div>
   </div>
-</div>
-
-    </body>
-</html>
-
-  </div>
-</div>
-</div>
 </article>
 
+      </div>
     </div>
+  </div>
     <footer>
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
