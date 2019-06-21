@@ -1,0 +1,32 @@
+---
+layout: post
+title:  Communication for software engineers
+tags: [leadership, communication]
+---
+
+Communication is difficult. Giving and receiving critical feedback can create situations in which emotions run high. To be a high functioning and happy engineering team you need the ability to give and receive critical feedback in a safe and nurturing environment. The part of communication I want to focus on is the ability to communicate effectively and with the right intent over text. Being mindful of how our critical feedback may be received, particularly across asynchronous channels, will create the kinds of conversations that foster more learning and understanding in our organization.
+
+Verbal communication gives all parties involved a common context to understand a problem. We can quickly explain nuanced questions and explore ideas quickly. This gives us a great medium to communicate quickly and effectively, however, when we use text we can’t go back and forth as quickly. Building up a context is much easier with a conversation than text. If we are not communicating with an understood context, conversations are more difficult to manage. These issues in text conversations are exacerbated by a lack of body language to key off which can lead to unintended arguments stemming from misunderstandings.
+
+As professionals, we must communicate our concerns in a way that invites safety and understanding among our peers. Critical communication is a courageous activity that takes vulnerability and care. To give critical feedback effectively we need to create a safe environment and we can make happen on the fly. If we are able to do create this type of environment anywhere we can allow the flow ideas and increased innovation. 
+
+Transferring your ideas from thoughts into words takes courage. We all do this every day and do a great job. When we talk to each other we can see verbal queues and intent. Text does not give us the ability to respond right away and change what we are saying in response to the reactions or the other person or to change direction if we feel that we might be hurting feelings. When we are talking on Slack and on Github we need to remember that text responses are often effective, but sometimes they can feel like a jab or an attack. When we give advice on how to make something better I always keep in mind retro mantra we use at Mavenlink - 
+
+`We believe everyone did the best they could with the information they had at the time`
+
+If we all believe that is true when someone puts out an idea we need to trust that they believe their idea is valuable and useful for the organization. If we disregard what someone says or push their ideas off we are pushing them down.
+
+## Benefits of being better communicators
+Chat, text, and, and PR feedback are valuable communication channels that generally improve the way we communicate. We can’t all be in the same place at the same time so communicating effectively across these channels is a skill that will improve our work lives. When we have an environment where everyone can feel safe to offer ideas we will not only receive more ideas but those new ideas will be different from our own old ideas! Who wants to live in an echo chamber! Creating safety in sharing ideas, particularly ideas that are not similar to our own can expand the pool of possible solutions available to us. It is fun to riff on ideas together as our understanding of the problem and the possibilities get refined.  We will be able to achieve higher levels of collaboration within our team and beyond. This will not occur overnight but as we work to gain the trust of our colleagues and tune our listening skills we will be surprised at the quality of solutions that will rise from our colleagues who we previously thought of as too quiet or too new to contribute. Our ability to be creative and innovative is directly tied to our ability to be courageously vulnerable. 
+
+## Solutions for being a better communicator
+In my day to day, I sometimes see comments that could be perceived as hurtful or unconstructive when we have not invested in the relationship between the involved parties. When we talk to close friends we can talk with a different type of demeanor. The relationships we build at work are great and enable us to joke and be more direct sometimes, but not everyone has the same relationships with each other. We need to make sure that everyone feels safe and confident to bring their ideas to the table. Newer engineers will look at comments from more senior engineers and can see offhand comments that might make them feel as if they should not bring up ideas since someone more senior than them had their idea shut down. My goal every day is
+to make sure that everyone feels safe to be able to bring up ideas without restraint.
+
+Working with someone to understand why their idea might not work or be effective is useful for all parties. When we talk through experiences we have had or bring up blogs and code that shows why an idea will not work as well is much more effective than just dismissing the suggestion. We can all gain a better understanding of the problem as well as the possible solutions if we are willing to talk through ideas.
+
+Simple comments such as "This is schema wrong" can be very unproductive to culture and our relationships. While the comment might be true and useful feedback saying something slightly different like "I don't think we meant to commit this, this schema looks wrong to me. I think it should be (a really useful comment about a better data type or something)" or "Am I missing something or is this schema change incorrect? I think we want to do this (useful info) because (good info based on information they might not have had)". Changing our response from focusing on the other engineer being wrong to questioning the intent and validity of the code enables us to talk about to problem and not hurt other people's feelings if they made a mistake. We should all focus on how we can improve code and process to bring each other up when we have more information than others.
+
+We all want the best for our organizations and for each other if we focus on bringing each other up and helping others grow we can not only build stronger relationships but we can also grow faster. The free flow of ideas is only possible in a safe environment and to maintain that type of environment we need to be cautious of how we interact.
+
+Influenced by Brené Brown
