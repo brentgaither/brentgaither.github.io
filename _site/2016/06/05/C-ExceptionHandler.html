@@ -18,34 +18,83 @@
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://localhost:4000/feed.xml">
 </head>
 
-<nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="flex-sm-fill text-sm-center nav-link" href="/">Brent Gaither</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="/about">About</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="/PokemonGo">PokemonGo</a>
-</nav>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Brent Gaither</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  href="/about">About</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/PokemonGo">PokemonGo</a>
+  </li>
+</ul>
 
 <body>
 <div class="row">
-  <div class="col"></div>
-  <div class="col-8">
-    <header class="post-header">
+  <div class="col">
+    <table class="table">
   
-  <span class="badge badge-success">C#</span>
+  <tr>
+    <td><a href="/2019/06/05/Leadership.html">Leadership and building software</a></td>
+  </tr>
   
-  <h1 class="post-title" itemprop="name headline">C# Exception handling</h1>
-  <p class="post-meta">
-    <time datetime="2016-06-05T00:00:00-06:00" itemprop="datePublished">Jun 5, 2016
-    </time>
-    
-  </p>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-  <title>Brentgaither.GitHub.io by brentgaither</title>
-</header>
+  <tr>
+    <td><a href="/2019/05/18/Duplicate-Records-Rails.html">Duplicate Records in Rails</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2018/07/24/Filestream.html">Sql Filestream</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2018/06/23/AngularLaravelAuth.html">Angular and Laravel Authentication</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2017/08/23/EloquentSubquery.html">Laravel - Eloquent subqueries</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/06/05/C-ExceptionHandler.html">C# Exception handling</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/05/07/C-Guard.html">C# Guard</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/02/19/NeedlemanWunsch.html">Needleman-Wunsch Algorithm</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/bioinformatics/2016/02/19/MatchingSequences.html">Aligning DNA</a></td>
+  </tr>
+  
+</table>
 
-<div class="post-content" itemprop="articleBody">
-  <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The “yellow screen” can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
+  </div>
+  <div class="col-8">
+    <br/>
+
+    <header class="post-header">
+      
+      <span class="badge badge-success">C#</span>
+      
+      <h1 class="post-title" itemprop="name headline">C# Exception handling</h1>
+      <p class="post-meta">
+        <time datetime="2016-06-05T00:00:00-05:00" itemprop="datePublished">Jun 5, 2016
+        </time>
+        
+      </p>
+      <meta charset='utf-8'>
+      <meta http-equiv="X-UA-Compatible" content="chrome=1">
+      <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+      <title>Brentgaither.GitHub.io by brentgaither</title>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+      <p>Errors happen in code so we need to deal with them in a way that will not confuse the user and we should give them useful feedback as to what happened. The “yellow screen” can be intimidating for a user especially because it includes the full stack trace. Here is a way to handle errors in an MVC application.</p>
 
 <p>Lets first take a look at the custom controller we are going to use. This will replace the controller that your controllers inherit from because we want to change how exceptions are handled. This custom controller inherits from controller so we will override the onException method that controller already has. We should make sure that went do not give away too much information to the end user when we show errors. If you want we could change the logging for a special user or role.</p>
 
@@ -123,7 +172,7 @@ else
 <span class="p">}</span>
 </code></pre></div></div>
 
-</div>
+    </div>
 
   </div>
   <div class="col"></div>
@@ -132,5 +181,6 @@ else
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
 </footer>
+
 
 </body>

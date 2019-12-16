@@ -18,36 +18,85 @@
   <link rel="alternate" type="application/rss+xml" title="Brent Gaither" href="http://localhost:4000/feed.xml">
 </head>
 
-<nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="flex-sm-fill text-sm-center nav-link" href="/">Brent Gaither</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="/about">About</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="/PokemonGo">PokemonGo</a>
-</nav>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Brent Gaither</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  href="/about">About</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/PokemonGo">PokemonGo</a>
+  </li>
+</ul>
 
 <body>
 <div class="row">
-  <div class="col"></div>
-  <div class="col-8">
-    <header class="post-header">
+  <div class="col">
+    <table class="table">
   
-  <span class="badge badge-success">authentication</span>
+  <tr>
+    <td><a href="/2019/06/05/Leadership.html">Leadership and building software</a></td>
+  </tr>
   
-  <span class="badge badge-success">laravel</span>
+  <tr>
+    <td><a href="/2019/05/18/Duplicate-Records-Rails.html">Duplicate Records in Rails</a></td>
+  </tr>
   
-  <h1 class="post-title" itemprop="name headline">Angular and Laravel Authentication</h1>
-  <p class="post-meta">
-    <time datetime="2018-06-23T00:00:00-06:00" itemprop="datePublished">Jun 23, 2018
-    </time>
-    
-  </p>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-  <title>Brentgaither.GitHub.io by brentgaither</title>
-</header>
+  <tr>
+    <td><a href="/2018/07/24/Filestream.html">Sql Filestream</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2018/06/23/AngularLaravelAuth.html">Angular and Laravel Authentication</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2017/08/23/EloquentSubquery.html">Laravel - Eloquent subqueries</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/06/05/C-ExceptionHandler.html">C# Exception handling</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/05/07/C-Guard.html">C# Guard</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/2016/02/19/NeedlemanWunsch.html">Needleman-Wunsch Algorithm</a></td>
+  </tr>
+  
+  <tr>
+    <td><a href="/bioinformatics/2016/02/19/MatchingSequences.html">Aligning DNA</a></td>
+  </tr>
+  
+</table>
 
-<div class="post-content" itemprop="articleBody">
-  <p>I have been working on an Angular 6 application and i was struggling to get
+  </div>
+  <div class="col-8">
+    <br/>
+
+    <header class="post-header">
+      
+      <span class="badge badge-success">authentication</span>
+      
+      <span class="badge badge-success">laravel</span>
+      
+      <h1 class="post-title" itemprop="name headline">Angular and Laravel Authentication</h1>
+      <p class="post-meta">
+        <time datetime="2018-06-23T00:00:00-05:00" itemprop="datePublished">Jun 23, 2018
+        </time>
+        
+      </p>
+      <meta charset='utf-8'>
+      <meta http-equiv="X-UA-Compatible" content="chrome=1">
+      <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+      <title>Brentgaither.GitHub.io by brentgaither</title>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+      <p>I have been working on an Angular 6 application and i was struggling to get
 all of the authentication setup. I read lots of articles on how to create the entire
 OAuth workflow and I landed with the following solution for implicit grants.
 First you will need to create a Laravel application, I won’t go too much into
@@ -93,12 +142,12 @@ the passport components click create new client and add your app name as well as
 <p>Once you have the client created we can add a service to detect if the user is logged in.
 Create a new service named auth that looks like this</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span><span class="p">,</span> <span class="nx">Inject</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">BehaviorSubject</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'rxjs'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AUTH_CONFIG</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./auth-config'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClient</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthResult</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./authResult.model'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span><span class="p">,</span> <span class="nx">Inject</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BehaviorSubject</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rxjs</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AUTH_CONFIG</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth-config</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClient</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common/http</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthResult</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./authResult.model</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">AuthService</span> <span class="p">{</span>
@@ -106,21 +155,21 @@ Create a new service named auth that looks like this</p>
 <span class="nl">token</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
 
 <span class="c1">// Create a stream of logged in status to communicate throughout app</span>
-<span class="nl">loggedIn</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="nx">loggedIn$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">loggedIn</span><span class="p">);</span>
+<span class="nl">loggedIn</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
+<span class="nx">loggedIn$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">loggedIn</span><span class="p">);</span>
 
 <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>  <span class="p">}</span>
 
 <span class="nx">getToken</span> <span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">access_token</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kr">public</span> <span class="nx">tryLogin</span><span class="p">()</span> <span class="p">{</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">())</span> <span class="p">{</span>
  <span class="c1">// Send the user to the authenticaition server</span>
-  <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nb">encodeURI</span><span class="p">(</span><span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">AUTHENTICATION_SERVER</span> <span class="o">+</span> <span class="s1">'?'</span>
-  <span class="o">+</span> <span class="s1">'client_id='</span> <span class="o">+</span> <span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">CLIENT_ID</span>
-  <span class="o">+</span> <span class="s1">'&amp;redirect_uri='</span> <span class="o">+</span> <span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">REDIRECT</span> <span class="o">+</span> <span class="s1">'&amp;response_type='</span>
+  <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nb">encodeURI</span><span class="p">(</span><span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">AUTHENTICATION_SERVER</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">?</span><span class="dl">'</span>
+  <span class="o">+</span> <span class="dl">'</span><span class="s1">client_id=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">CLIENT_ID</span>
+  <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;redirect_uri=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">REDIRECT</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;response_type=</span><span class="dl">'</span>
   <span class="o">+</span> <span class="nx">AUTH_CONFIG</span><span class="p">.</span><span class="nx">RESPONSE_TYPE</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -131,24 +180,24 @@ Create a new service named auth that looks like this</p>
   <span class="c1">// Set the time that the Access Token will expire at</span>
   <span class="kd">const</span> <span class="nx">expiresAt</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">((</span><span class="nx">authResult</span><span class="p">.</span><span class="nx">expires_in</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
   <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">());</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="nx">authResult</span><span class="p">.</span><span class="nx">access_token</span><span class="p">);</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'token_type'</span><span class="p">,</span> <span class="nx">authResult</span><span class="p">.</span><span class="nx">token_type</span><span class="p">);</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'expires_at'</span><span class="p">,</span> <span class="nx">expiresAt</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">access_token</span><span class="dl">'</span><span class="p">,</span> <span class="nx">authResult</span><span class="p">.</span><span class="nx">access_token</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">token_type</span><span class="dl">'</span><span class="p">,</span> <span class="nx">authResult</span><span class="p">.</span><span class="nx">token_type</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">expires_at</span><span class="dl">'</span><span class="p">,</span> <span class="nx">expiresAt</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kr">public</span> <span class="nx">logout</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
   <span class="c1">// Remove tokens and expiry time from localStorage</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">);</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">'id_token'</span><span class="p">);</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">'expires_at'</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">access_token</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">id_token</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">expires_at</span><span class="dl">'</span><span class="p">);</span>
   <span class="c1">// Go back to the home route</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">'/'</span><span class="p">]);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">]);</span>
 <span class="p">}</span>
 
-<span class="kr">public</span> <span class="nx">isAuthenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+<span class="kr">public</span> <span class="nx">isAuthenticated</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
   <span class="c1">// Check whether the current time is past the</span>
   <span class="c1">// Access Token's expiry time</span>
-  <span class="kd">const</span> <span class="nx">expiresAt</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'expires_at'</span><span class="p">));</span>
+  <span class="kd">const</span> <span class="nx">expiresAt</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">expires_at</span><span class="dl">'</span><span class="p">));</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">expiresAt</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -156,16 +205,16 @@ Create a new service named auth that looks like this</p>
   <span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{};</span>
   <span class="kd">let</span> <span class="nx">queries</span><span class="p">,</span> <span class="nx">temp</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span><span class="p">;</span>
   <span class="c1">// Split into key/value pairs</span>
-  <span class="nx">queries</span> <span class="o">=</span> <span class="nx">queryString</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">'&amp;'</span><span class="p">);</span>
+  <span class="nx">queries</span> <span class="o">=</span> <span class="nx">queryString</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">&amp;</span><span class="dl">'</span><span class="p">);</span>
   <span class="c1">// Convert the array of strings into an object</span>
   <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">queries</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="nx">temp</span> <span class="o">=</span> <span class="nx">queries</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">'='</span><span class="p">);</span>
+    <span class="nx">temp</span> <span class="o">=</span> <span class="nx">queries</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">=</span><span class="dl">'</span><span class="p">);</span>
     <span class="nx">params</span><span class="p">[</span><span class="nx">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
   <span class="p">}</span>
   <span class="kd">const</span> <span class="nx">authResult</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AuthResult</span><span class="p">();</span>
-  <span class="nx">authResult</span><span class="p">.</span><span class="nx">access_token</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">];</span>
-  <span class="nx">authResult</span><span class="p">.</span><span class="nx">expires_in</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="s1">'expires_in'</span><span class="p">];</span>
-  <span class="nx">authResult</span><span class="p">.</span><span class="nx">token_type</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="s1">'token_type'</span><span class="p">];</span>
+  <span class="nx">authResult</span><span class="p">.</span><span class="nx">access_token</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="dl">'</span><span class="s1">access_token</span><span class="dl">'</span><span class="p">];</span>
+  <span class="nx">authResult</span><span class="p">.</span><span class="nx">expires_in</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="dl">'</span><span class="s1">expires_in</span><span class="dl">'</span><span class="p">];</span>
+  <span class="nx">authResult</span><span class="p">.</span><span class="nx">token_type</span> <span class="o">=</span>  <span class="nx">params</span><span class="p">[</span><span class="dl">'</span><span class="s1">token_type</span><span class="dl">'</span><span class="p">];</span>
   <span class="k">return</span> <span class="nx">authResult</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="p">}</span>
@@ -191,11 +240,11 @@ files to save all of the configurations for the authorization server.</p>
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">AUTH_CONFIG</span><span class="p">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">CLIENT_ID</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
-  <span class="na">REDIRECT</span><span class="p">:</span> <span class="s1">'http://localhost:4200/callback'</span><span class="p">,</span>
-  <span class="na">SCOPE</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="na">RESPONSE_TYPE</span><span class="p">:</span> <span class="s1">'token'</span><span class="p">,</span>
-  <span class="na">AUTHENTICATION_SERVER</span><span class="p">:</span> <span class="s1">'http://127.0.0.1:8000/oauth/authorize'</span>
+  <span class="na">CLIENT_ID</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">REDIRECT</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://localhost:4200/callback</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">SCOPE</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+  <span class="na">RESPONSE_TYPE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">token</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">AUTHENTICATION_SERVER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://127.0.0.1:8000/oauth/authorize</span><span class="dl">'</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
@@ -204,14 +253,14 @@ files to save all of the configurations for the authorization server.</p>
 from the auth server. To do this create a new component (ng g c callback). It is a very simple component that will just
 send some data to the auth service and maybe run a spinner while it waits.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../auth/auth.service'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../auth/auth.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-  <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-callback'</span><span class="p">,</span>
-  <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'./callback.component.html'</span><span class="p">,</span>
-  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="s1">'./callback.component.css'</span><span class="p">]</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-callback</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./callback.component.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./callback.component.css</span><span class="dl">'</span><span class="p">]</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">CallbackComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
 
@@ -222,7 +271,7 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
     <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">fragment</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">fragment</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">setSession</span><span class="p">(</span><span class="nx">fragment</span><span class="p">);</span>
     <span class="p">});</span>
-    <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s1">'/'</span><span class="p">;</span>
+    <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -230,13 +279,13 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
 <h1 id="home-component">Home component</h1>
 <p>Lets create a simple component to check and see if the user is logged in (ng g c home)</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../auth/auth.service'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../auth/auth.service</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-  <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-home'</span><span class="p">,</span>
-  <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'./home.component.html'</span><span class="p">,</span>
-  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="s1">'./home.component.css'</span><span class="p">]</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-home</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./home.component.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./home.component.css</span><span class="dl">'</span><span class="p">]</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">HomeComponent</span> <span class="p">{</span>
 
@@ -249,7 +298,7 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
     <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">tryLogin</span><span class="p">();</span>
   <span class="p">}</span>
 
-  <span class="kr">public</span> <span class="nx">authenticated</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">authenticated</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -258,17 +307,17 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
 <p>Now add some html in the home component</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;button</span>
-      <span class="err">*</span><span class="na">ngIf=</span><span class="s">"this.authenticated()"</span>
+      <span class="na">*ngIf=</span><span class="s">"this.authenticated()"</span>
       <span class="na">mat-menu-item</span>
       <span class="na">aria-label=</span><span class="s">"Logout"</span>
-      <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">logout</span><span class="err">()"</span><span class="nt">&gt;</span>
+      <span class="na">(click)=</span><span class="s">"logout()"</span><span class="nt">&gt;</span>
       Log out
     <span class="nt">&lt;/button&gt;</span>
     <span class="nt">&lt;button</span>
-      <span class="err">*</span><span class="na">ngIf=</span><span class="s">"!this.authenticated()"</span>
+      <span class="na">*ngIf=</span><span class="s">"!this.authenticated()"</span>
       <span class="na">mat-menu-item</span>
       <span class="na">aria-label=</span><span class="s">"Login"</span>
-      <span class="err">(</span><span class="na">click</span><span class="err">)="</span><span class="na">login</span><span class="err">()"</span><span class="nt">&gt;</span>
+      <span class="na">(click)=</span><span class="s">"login()"</span><span class="nt">&gt;</span>
       Sign in
     <span class="nt">&lt;/button&gt;</span>
 </code></pre></div></div>
@@ -276,17 +325,17 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
 <h1 id="routing">Routing</h1>
 <p>We will also need to add RouterModule to the app module so the app can use Angular’s routing. Create a simple routing module and import it into your app module.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span><span class="p">,</span> <span class="nx">Routes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span><span class="p">,</span> <span class="nx">Routes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">HomeComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./home/home.component'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">CallbackComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./callback/callback.component'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HomeComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./home/home.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">CallbackComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./callback/callback.component</span><span class="dl">'</span><span class="p">;</span>
 
 
 <span class="kd">const</span> <span class="nx">routes</span><span class="p">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/home'</span><span class="p">,</span> <span class="na">pathMatch</span><span class="p">:</span> <span class="s1">'full'</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'home'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">HomeComponent</span><span class="p">,</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'callback'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">CallbackComponent</span><span class="p">,</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/home</span><span class="dl">'</span><span class="p">,</span> <span class="na">pathMatch</span><span class="p">:</span> <span class="dl">'</span><span class="s1">full</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">HomeComponent</span><span class="p">,</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">callback</span><span class="dl">'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">CallbackComponent</span><span class="p">,</span> <span class="p">},</span>
 <span class="p">];</span>
 
 <span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
@@ -301,12 +350,12 @@ send some data to the auth service and maybe run a spinner while it waits.</p>
 <p>Click the sign in button and it should all work! Oh no… “unsupported_grant_type”, looks like something is setup
 wrong for the authorization server. If we go to Laravel’s documentation we can see that for implicit flow to work we need to add  Passport::enableImplicitGrant(); to AuthServiceProvider (right after where we registered the passport routes) Now everything should work and we will have an authorization token in local storage. Theres just one more thing. When we send requests to the server from a component we will have to go to the authorization service and add the token in the header. Instead of doing that on each request we can add an http interceptor to our project and let that take care of sending the token on each request.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">throwError</span> <span class="k">as</span> <span class="nx">observableThrowError</span><span class="p">,</span>  <span class="nx">Observable</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'rxjs'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">throwError</span> <span class="k">as</span> <span class="nx">observableThrowError</span><span class="p">,</span>  <span class="nx">Observable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rxjs</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="p">{</span><span class="nx">catchError</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'rxjs/operators'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span><span class="p">,</span> <span class="nx">Injector</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpEvent</span><span class="p">,</span> <span class="nx">HttpInterceptor</span><span class="p">,</span> <span class="nx">HttpHandler</span><span class="p">,</span> <span class="nx">HttpRequest</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./auth/auth.service'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">catchError</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rxjs/operators</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span><span class="p">,</span> <span class="nx">Injector</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpEvent</span><span class="p">,</span> <span class="nx">HttpInterceptor</span><span class="p">,</span> <span class="nx">HttpHandler</span><span class="p">,</span> <span class="nx">HttpRequest</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common/http</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth/auth.service</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyHttpInterceptor</span> <span class="kr">implements</span> <span class="nx">HttpInterceptor</span> <span class="p">{</span>
@@ -315,13 +364,13 @@ wrong for the authorization server. If we go to Laravel’s documentation we can
 <span class="nx">intercept</span><span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span> <span class="nx">HttpHandler</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">HttpEvent</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
 
   <span class="c1">// Clone the request to add the new header.</span>
-  <span class="kd">const</span> <span class="nx">authReq</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">clone</span><span class="p">({</span> <span class="na">headers</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">,</span> <span class="s1">'Bearer '</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">getToken</span><span class="p">())});</span>
+  <span class="kd">const</span> <span class="nx">authReq</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">clone</span><span class="p">({</span> <span class="na">headers</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">authService</span><span class="p">.</span><span class="nx">getToken</span><span class="p">())});</span>
 
   <span class="c1">// send the newly created request</span>
   <span class="k">return</span> <span class="nx">next</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="nx">authReq</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span>
       <span class="nx">catchError</span><span class="p">((</span><span class="nx">error</span><span class="p">,</span> <span class="nx">caught</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="c1">// intercept the response error and displace it to the console</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Error Occurred'</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error Occurred</span><span class="dl">'</span><span class="p">);</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
       <span class="c1">// return the error to the method that called it</span>
       <span class="k">return</span> <span class="nx">observableThrowError</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
@@ -339,7 +388,7 @@ wrong for the authorization server. If we go to Laravel’s documentation we can
 <span class="p">}],</span>
 </code></pre></div></div>
 
-</div>
+    </div>
 
   </div>
   <div class="col"></div>
@@ -348,5 +397,6 @@ wrong for the authorization server. If we go to Laravel’s documentation we can
   <p><img src="/images/octocat-icon.png"><a href="https://pages.github.com">GitHub Pages</a> Brent Gaither  brent[dot]w[dot]gaither[at]gmail[dot]com</p>
 
 </footer>
+
 
 </body>
