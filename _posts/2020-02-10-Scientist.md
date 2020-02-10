@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  Stop trying to make failure happen
-tags: [leadership, communication, failure]
+title:  Science
+tags: [expierments, ruby]
 ---
 
 I see people all the time saying they want to fail as fast as possible and how great failure is. Embrace failure. 
@@ -16,4 +16,4 @@ it is more likely that our end results will not match our expectations. To me th
 not failure. Failure is the lack of success. Learning something new about how a line of code or a system works in 
 success. Its a simple mind shift but I think it makes a big difference in our day to day lives. We don’t want to fail, 
 so stop saying we should try to fail fast. Learn fast and make informed decisions. Build software you understand and 
-create experiments that help you understand new ideas. Failure is not a goal. 
+reate experiments that help you understand new ideas. Failure is not a goal. 
